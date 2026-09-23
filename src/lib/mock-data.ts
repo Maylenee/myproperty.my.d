@@ -1,0 +1,309 @@
+import apartmentImage from "@/assets/property-apartment.jpg";
+import houseImage from "@/assets/property-modern-house.jpg";
+import kostImage from "@/assets/property-kost.jpg";
+import landImage from "@/assets/property-land.jpg";
+import shophouseImage from "@/assets/property-shophouse.jpg";
+import villaImage from "@/assets/property-villa.jpg";
+import warehouseImage from "@/assets/property-warehouse.jpg";
+import type { AppState, Category, Inquiry, Property, Report, User } from "./types";
+
+export const photoByType: Record<string, string> = {
+  rumah: houseImage,
+  tanah: landImage,
+  apartemen: apartmentImage,
+  ruko: shophouseImage,
+  kost: kostImage,
+  villa: villaImage,
+  gudang: warehouseImage,
+  gedung: warehouseImage,
+};
+
+export const allPhotos = [
+  houseImage,
+  apartmentImage,
+  villaImage,
+  landImage,
+  shophouseImage,
+  kostImage,
+  warehouseImage,
+];
+
+export const categories: Category[] = [
+  { id: "c1", slug: "rumah", name: "Rumah", active: true },
+  { id: "c2", slug: "tanah", name: "Tanah", active: true },
+  { id: "c3", slug: "apartemen", name: "Apartemen", active: true },
+  { id: "c4", slug: "ruko", name: "Ruko", active: true },
+  { id: "c5", slug: "kost", name: "Kost", active: true },
+  { id: "c6", slug: "villa", name: "Villa", active: true },
+  { id: "c7", slug: "gudang", name: "Gudang", active: true },
+  { id: "c8", slug: "gedung", name: "Gedung", active: true },
+];
+
+export const facilityOptions = [
+  "Garasi",
+  "Carport",
+  "Taman",
+  "Listrik",
+  "Air PDAM",
+  "AC",
+  "Internet",
+];
+
+export const provinces = ["Jawa Barat", "DKI Jakarta", "Jawa Tengah"];
+
+export const citiesByProvince: Record<string, string[]> = {
+  "Jawa Barat": ["Indramayu", "Cirebon", "Bandung", "Bekasi"],
+  "DKI Jakarta": ["Jakarta Selatan", "Jakarta Timur"],
+  "Jawa Tengah": ["Semarang", "Solo"],
+};
+
+export const districtsByCity: Record<string, string[]> = {
+  Indramayu: ["Indramayu", "Jatibarang", "Lohbener", "Sindang", "Karangampel", "Haurgeulis"],
+  Cirebon: ["Kejaksan", "Harjamukti", "Sumber"],
+  Bandung: ["Coblong", "Antapani", "Buahbatu"],
+  Bekasi: ["Bekasi Barat", "Tambun"],
+  "Jakarta Selatan": ["Tebet", "Kebayoran Baru"],
+  "Jakarta Timur": ["Cakung", "Duren Sawit"],
+  Semarang: ["Tembalang", "Banyumanik"],
+  Solo: ["Laweyan", "Jebres"],
+};
+
+const now = Date.now();
+const daysAgo = (n: number) => new Date(now - n * 86_400_000).toISOString();
+
+export const users: User[] = [
+  {
+    id: "u-admin",
+    name: "Admin MyProperty",
+    email: "admin@myproperty.id",
+    password: "admin123",
+    phone: "6281100000000",
+    role: "admin",
+    createdAt: daysAgo(400),
+  },
+  {
+    id: "u-s1",
+    name: "Andi Pratama",
+    email: "andi@seller.id",
+    password: "seller123",
+    phone: "6281234567890",
+    role: "seller",
+    verified: true,
+    bio: "Agen properti area Indramayu dan sekitarnya sejak 2016.",
+    createdAt: daysAgo(320),
+  },
+  {
+    id: "u-s2",
+    name: "Siti Rahmawati",
+    email: "siti@seller.id",
+    password: "seller123",
+    phone: "6281298765432",
+    role: "seller",
+    verified: true,
+    bio: "Pemilik beberapa kost dan rumah sewa di pusat kota.",
+    createdAt: daysAgo(280),
+  },
+  {
+    id: "u-s3",
+    name: "Budi Santoso",
+    email: "budi@seller.id",
+    password: "seller123",
+    phone: "6281377788899",
+    role: "seller",
+    verified: false,
+    bio: "Pemilik tanah dan gudang di jalur pantura.",
+    createdAt: daysAgo(90),
+  },
+  {
+    id: "u-b1",
+    name: "Rina Kusuma",
+    email: "rina@buyer.id",
+    password: "buyer123",
+    phone: "6281455566677",
+    role: "buyer",
+    createdAt: daysAgo(60),
+  },
+  {
+    id: "u-b2",
+    name: "Dimas Anggara",
+    email: "dimas@buyer.id",
+    password: "buyer123",
+    phone: "6281566677788",
+    role: "buyer",
+    createdAt: daysAgo(30),
+  },
+];
+
+type Seed = [
+  name: string,
+  type: string,
+  transaction: "dijual" | "disewa",
+  price: number,
+  city: string,
+  district: string,
+  land: number,
+  building: number,
+  kt: number,
+  km: number,
+  lantai: number,
+  sellerId: string,
+  status: Property["status"],
+  views: number,
+  ageDays: number,
+];
+
+const seeds: Seed[] = [
+  ["Rumah Minimalis Modern", "rumah", "dijual", 650_000_000, "Indramayu", "Indramayu", 120, 90, 3, 2, 1, "u-s1", "aktif", 482, 3],
+  ["Rumah Keluarga Dekat Pusat Kota", "rumah", "dijual", 850_000_000, "Indramayu", "Sindang", 180, 140, 4, 2, 2, "u-s1", "aktif", 631, 6],
+  ["Rumah Asri Siap Huni", "rumah", "dijual", 480_000_000, "Indramayu", "Lohbener", 100, 70, 2, 1, 1, "u-s2", "aktif", 274, 9],
+  ["Rumah Sewa Dekat Sekolah", "rumah", "disewa", 28_000_000, "Indramayu", "Indramayu", 110, 80, 3, 2, 1, "u-s2", "aktif", 198, 12],
+  ["Rumah Baru Cluster Pantura", "rumah", "dijual", 1_150_000_000, "Indramayu", "Karangampel", 200, 150, 4, 3, 2, "u-s1", "aktif", 355, 15],
+  ["Rumah Modern Dekat Kampus", "rumah", "dijual", 720_000_000, "Cirebon", "Kejaksan", 130, 100, 3, 2, 2, "u-s1", "aktif", 410, 18],
+  ["Rumah Second Terawat", "rumah", "dijual", 560_000_000, "Cirebon", "Sumber", 140, 95, 3, 2, 1, "u-s3", "aktif", 162, 21],
+  ["Rumah Kontrakan 3 Pintu", "rumah", "disewa", 42_000_000, "Bekasi", "Tambun", 160, 120, 6, 3, 1, "u-s2", "aktif", 145, 25],
+  ["Tanah Strategis Dekat Jalan Utama", "tanah", "dijual", 450_000_000, "Indramayu", "Jatibarang", 240, 0, 0, 0, 0, "u-s3", "aktif", 289, 4],
+  ["Tanah Sawah Produktif", "tanah", "dijual", 320_000_000, "Indramayu", "Haurgeulis", 1000, 0, 0, 0, 0, "u-s3", "aktif", 121, 11],
+  ["Tanah Kavling Siap Bangun", "tanah", "dijual", 275_000_000, "Indramayu", "Lohbener", 150, 0, 0, 0, 0, "u-s1", "aktif", 203, 16],
+  ["Apartemen Studio Fully Furnished", "apartemen", "disewa", 36_000_000, "Jakarta Selatan", "Tebet", 0, 32, 1, 1, 1, "u-s2", "aktif", 512, 5],
+  ["Apartemen 2 Kamar View Kota", "apartemen", "dijual", 950_000_000, "Jakarta Selatan", "Kebayoran Baru", 0, 58, 2, 1, 1, "u-s2", "aktif", 386, 8],
+  ["Apartemen Dekat Stasiun", "apartemen", "disewa", 30_000_000, "Bekasi", "Bekasi Barat", 0, 40, 2, 1, 1, "u-s1", "aktif", 174, 19],
+  ["Ruko 2 Lantai Area Komersial", "ruko", "dijual", 1_200_000_000, "Indramayu", "Indramayu", 96, 160, 0, 2, 2, "u-s1", "aktif", 298, 7],
+  ["Ruko Pinggir Jalan Raya", "ruko", "disewa", 55_000_000, "Indramayu", "Jatibarang", 80, 130, 0, 1, 2, "u-s3", "aktif", 132, 14],
+  ["Kost Putri Dekat Kampus", "kost", "disewa", 14_000_000, "Semarang", "Tembalang", 200, 300, 12, 12, 2, "u-s2", "aktif", 623, 2],
+  ["Kost Eksklusif AC Full", "kost", "disewa", 21_000_000, "Bandung", "Coblong", 180, 280, 10, 10, 2, "u-s2", "aktif", 344, 13],
+  ["Villa dengan Halaman Luas", "villa", "dijual", 1_500_000_000, "Indramayu", "Lohbener", 300, 220, 4, 3, 2, "u-s1", "aktif", 407, 10],
+  ["Villa Tepi Sawah", "villa", "disewa", 85_000_000, "Bandung", "Buahbatu", 350, 180, 3, 3, 1, "u-s3", "aktif", 221, 22],
+  ["Gudang Jalur Pantura", "gudang", "disewa", 120_000_000, "Indramayu", "Sindang", 800, 600, 0, 2, 1, "u-s3", "aktif", 188, 17],
+  ["Gedung Kantor 3 Lantai", "gedung", "dijual", 4_500_000_000, "Cirebon", "Harjamukti", 500, 900, 0, 6, 3, "u-s1", "aktif", 141, 27],
+  ["Rumah Dijual Cepat Sudah Terjual", "rumah", "dijual", 610_000_000, "Indramayu", "Indramayu", 115, 85, 3, 2, 1, "u-s1", "terjual", 720, 45],
+  ["Rumah Sewa Tahunan Sudah Disewa", "rumah", "disewa", 32_000_000, "Indramayu", "Sindang", 120, 90, 3, 2, 1, "u-s2", "disewa", 410, 50],
+  ["Ruko Baru Menunggu Review", "ruko", "dijual", 980_000_000, "Indramayu", "Karangampel", 70, 120, 0, 2, 2, "u-s3", "pending", 0, 1],
+  ["Tanah Pekarangan Menunggu Review", "tanah", "dijual", 190_000_000, "Indramayu", "Jatibarang", 180, 0, 0, 0, 0, "u-s1", "pending", 0, 1],
+  ["Rumah Draft Belum Lengkap", "rumah", "dijual", 540_000_000, "Indramayu", "Lohbener", 100, 75, 3, 1, 1, "u-s1", "draft", 0, 2],
+];
+
+const provinceByCity: Record<string, string> = {
+  Indramayu: "Jawa Barat",
+  Cirebon: "Jawa Barat",
+  Bandung: "Jawa Barat",
+  Bekasi: "Jawa Barat",
+  "Jakarta Selatan": "DKI Jakarta",
+  "Jakarta Timur": "DKI Jakarta",
+  Semarang: "Jawa Tengah",
+  Solo: "Jawa Tengah",
+};
+
+function describe(seed: Seed) {
+  const [name, type, transaction, , city, district, land, building, kt] = seed;
+  const spec =
+    type === "tanah"
+      ? `Luas tanah ${land} m² dengan akses jalan yang baik.`
+      : `Luas tanah ${land} m², luas bangunan ${building} m²${kt ? `, ${kt} kamar tidur` : ""}.`;
+  return `${name} berlokasi di ${district}, ${city}. ${spec} Properti ini ${transaction === "dijual" ? "dijual" : "disewakan"} dengan kondisi terawat, lingkungan tenang, dan dekat dengan fasilitas umum seperti sekolah, pasar, dan akses jalan utama. Cocok untuk kebutuhan tempat tinggal maupun investasi jangka panjang.`;
+}
+
+export const properties: Property[] = seeds.map((seed, i) => {
+  const [name, type, transaction, price, city, district, land, building, kt, km, lantai, sellerId, status, views, ageDays] = seed;
+  const base = photoByType[type] ?? houseImage;
+  return {
+    id: `p${i + 1}`,
+    name,
+    type,
+    transaction,
+    price,
+    address: `Jl. Raya ${district} No. ${10 + i}`,
+    province: provinceByCity[city] ?? "Jawa Barat",
+    city,
+    district,
+    landArea: land,
+    buildingArea: building,
+    bedrooms: kt,
+    bathrooms: km,
+    floors: lantai,
+    description: describe(seed),
+    facilities:
+      type === "tanah"
+        ? ["Listrik", "Air PDAM"]
+        : ["Garasi", "Carport", "Taman", "Listrik", "Air PDAM"].slice(0, 3 + (i % 3)),
+    certificate: type === "tanah" ? "SHM" : i % 3 === 0 ? "SHM" : "HGB",
+    photos: [base, ...allPhotos.filter((p) => p !== base).slice(0, 3)],
+    sellerId,
+    status,
+    views,
+    createdAt: daysAgo(ageDays),
+    updatedAt: daysAgo(Math.max(0, ageDays - 1)),
+  };
+});
+
+export const inquiries: Inquiry[] = [
+  {
+    id: "i1",
+    propertyId: "p1",
+    sellerId: "u-s1",
+    buyerName: "Rina Kusuma",
+    buyerPhone: "6281455566677",
+    message: "Halo, apakah rumah ini masih tersedia? Saya ingin survei akhir pekan ini.",
+    status: "baru",
+    createdAt: daysAgo(1),
+  },
+  {
+    id: "i2",
+    propertyId: "p2",
+    sellerId: "u-s1",
+    buyerName: "Dimas Anggara",
+    buyerPhone: "6281566677788",
+    message: "Apakah harga masih bisa dinegosiasi? Mohon info sertifikatnya.",
+    status: "dibaca",
+    createdAt: daysAgo(2),
+  },
+  {
+    id: "i3",
+    propertyId: "p17",
+    sellerId: "u-s2",
+    buyerName: "Putri Amelia",
+    buyerPhone: "6281688899900",
+    message: "Untuk kost putri ini, apakah ada kamar kosong bulan depan?",
+    status: "baru",
+    createdAt: daysAgo(3),
+  },
+  {
+    id: "i4",
+    propertyId: "p9",
+    sellerId: "u-s3",
+    buyerName: "Hendra Wijaya",
+    buyerPhone: "6281799900011",
+    message: "Tanah ini lebarnya berapa meter menghadap jalan?",
+    status: "baru",
+    createdAt: daysAgo(5),
+  },
+];
+
+export const reports: Report[] = [
+  {
+    id: "r1",
+    propertyId: "p7",
+    reporter: "Rina Kusuma",
+    reason: "Foto properti tidak sesuai dengan kondisi sebenarnya.",
+    status: "pending",
+    createdAt: daysAgo(2),
+  },
+  {
+    id: "r2",
+    propertyId: "p16",
+    reporter: "Dimas Anggara",
+    reason: "Listing sudah tidak tersedia namun masih aktif.",
+    status: "pending",
+    createdAt: daysAgo(4),
+  },
+];
+
+export const initialState: AppState = {
+  users,
+  properties,
+  inquiries,
+  reports,
+  categories,
+  favorites: [],
+  recentlyViewed: [],
+  currentUserId: null,
+};
