@@ -12,10 +12,13 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as RecentlyViewedRouteImport } from './routes/recently-viewed'
 import { Route as RegisterRouteImport } from './routes/register'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
+import { Route as SavedRouteImport } from './routes/saved'
 import { Route as CategorySlugRouteImport } from './routes/category.$slug'
 import { Route as PropertiesIndexRouteImport } from './routes/properties.index'
+import { Route as PropertiesIdRouteImport } from './routes/properties.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -32,6 +35,11 @@ const LoginRoute = LoginRouteImport.update({
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RecentlyViewedRoute = RecentlyViewedRouteImport.update({
+  id: '/recently-viewed',
+  path: '/recently-viewed',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RegisterRoute = RegisterRouteImport.update({
   id: '/register',
   path: '/register',
@@ -40,6 +48,11 @@ const RegisterRoute = RegisterRouteImport.update({
 const ResetPasswordRoute = ResetPasswordRouteImport.update({
   id: '/reset-password',
   path: '/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SavedRoute = SavedRouteImport.update({
+  id: '/saved',
+  path: '/saved',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CategorySlugRoute = CategorySlugRouteImport.update({
@@ -52,23 +65,34 @@ const PropertiesIndexRoute = PropertiesIndexRouteImport.update({
   path: '/properties/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PropertiesIdRoute = PropertiesIdRouteImport.update({
+  id: '/properties/$id',
+  path: '/properties/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
+  '/recently-viewed': typeof RecentlyViewedRoute
   '/register': typeof RegisterRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/saved': typeof SavedRoute
   '/category/$slug': typeof CategorySlugRoute
+  '/properties/$id': typeof PropertiesIdRoute
   '/properties/': typeof PropertiesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
+  '/recently-viewed': typeof RecentlyViewedRoute
   '/register': typeof RegisterRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/saved': typeof SavedRoute
   '/category/$slug': typeof CategorySlugRoute
+  '/properties/$id': typeof PropertiesIdRoute
   '/properties': typeof PropertiesIndexRoute
 }
 export interface FileRoutesById {
@@ -76,9 +100,12 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
+  '/recently-viewed': typeof RecentlyViewedRoute
   '/register': typeof RegisterRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/saved': typeof SavedRoute
   '/category/$slug': typeof CategorySlugRoute
+  '/properties/$id': typeof PropertiesIdRoute
   '/properties/': typeof PropertiesIndexRoute
 }
 export interface FileRouteTypes {
@@ -87,27 +114,36 @@ export interface FileRouteTypes {
     | '/'
     | '/forgot-password'
     | '/login'
+    | '/recently-viewed'
     | '/register'
     | '/reset-password'
+    | '/saved'
     | '/category/$slug'
+    | '/properties/$id'
     | '/properties/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/forgot-password'
     | '/login'
+    | '/recently-viewed'
     | '/register'
     | '/reset-password'
+    | '/saved'
     | '/category/$slug'
+    | '/properties/$id'
     | '/properties'
   id:
     | '__root__'
     | '/'
     | '/forgot-password'
     | '/login'
+    | '/recently-viewed'
     | '/register'
     | '/reset-password'
+    | '/saved'
     | '/category/$slug'
+    | '/properties/$id'
     | '/properties/'
   fileRoutesById: FileRoutesById
 }
@@ -115,9 +151,12 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ForgotPasswordRoute: typeof ForgotPasswordRoute
   LoginRoute: typeof LoginRoute
+  RecentlyViewedRoute: typeof RecentlyViewedRoute
   RegisterRoute: typeof RegisterRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
+  SavedRoute: typeof SavedRoute
   CategorySlugRoute: typeof CategorySlugRoute
+  PropertiesIdRoute: typeof PropertiesIdRoute
   PropertiesIndexRoute: typeof PropertiesIndexRoute
 }
 
@@ -144,6 +183,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/recently-viewed': {
+      id: '/recently-viewed'
+      path: '/recently-viewed'
+      fullPath: '/recently-viewed'
+      preLoaderRoute: typeof RecentlyViewedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/register': {
       id: '/register'
       path: '/register'
@@ -156,6 +202,13 @@ declare module '@tanstack/react-router' {
       path: '/reset-password'
       fullPath: '/reset-password'
       preLoaderRoute: typeof ResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/saved': {
+      id: '/saved'
+      path: '/saved'
+      fullPath: '/saved'
+      preLoaderRoute: typeof SavedRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/category/$slug': {
@@ -172,6 +225,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PropertiesIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/properties/$id': {
+      id: '/properties/$id'
+      path: '/properties/$id'
+      fullPath: '/properties/$id'
+      preLoaderRoute: typeof PropertiesIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -179,9 +239,12 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ForgotPasswordRoute: ForgotPasswordRoute,
   LoginRoute: LoginRoute,
+  RecentlyViewedRoute: RecentlyViewedRoute,
   RegisterRoute: RegisterRoute,
   ResetPasswordRoute: ResetPasswordRoute,
+  SavedRoute: SavedRoute,
   CategorySlugRoute: CategorySlugRoute,
+  PropertiesIdRoute: PropertiesIdRoute,
   PropertiesIndexRoute: PropertiesIndexRoute,
 }
 export const routeTree = rootRouteImport
