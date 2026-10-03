@@ -17,10 +17,23 @@ import { Route as RecentlyViewedRouteImport } from './routes/recently-viewed'
 import { Route as RegisterRouteImport } from './routes/register'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as SavedRouteImport } from './routes/saved'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as AdminCategoriesRouteImport } from './routes/admin.categories'
+import { Route as AdminLoginRouteImport } from './routes/admin.login'
+import { Route as AdminPropertiesRouteImport } from './routes/admin.properties'
+import { Route as AdminReportsRouteImport } from './routes/admin.reports'
+import { Route as AdminSellersRouteImport } from './routes/admin.sellers'
+import { Route as AdminUsersRouteImport } from './routes/admin.users'
 import { Route as CategorySlugRouteImport } from './routes/category.$slug'
 import { Route as PropertiesIndexRouteImport } from './routes/properties.index'
 import { Route as PropertiesIdRouteImport } from './routes/properties.$id'
 import { Route as SellerIdRouteImport } from './routes/seller.$id'
+import { Route as SellerDashboardRouteImport } from './routes/seller.dashboard'
+import { Route as SellerInquiriesRouteImport } from './routes/seller.inquiries'
+import { Route as SellerProfileRouteImport } from './routes/seller.profile'
+import { Route as SellerPropertiesIndexRouteImport } from './routes/seller.properties.index'
+import { Route as SellerPropertiesCreateRouteImport } from './routes/seller.properties.create'
+import { Route as SellerPropertiesIdEditRouteImport } from './routes/seller.properties.$id.edit'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -62,6 +75,41 @@ const SavedRoute = SavedRouteImport.update({
   path: '/saved',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/admin/',
+  path: '/admin/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminCategoriesRoute = AdminCategoriesRouteImport.update({
+  id: '/admin/categories',
+  path: '/admin/categories',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminLoginRoute = AdminLoginRouteImport.update({
+  id: '/admin/login',
+  path: '/admin/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminPropertiesRoute = AdminPropertiesRouteImport.update({
+  id: '/admin/properties',
+  path: '/admin/properties',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminReportsRoute = AdminReportsRouteImport.update({
+  id: '/admin/reports',
+  path: '/admin/reports',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminSellersRoute = AdminSellersRouteImport.update({
+  id: '/admin/sellers',
+  path: '/admin/sellers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminUsersRoute = AdminUsersRouteImport.update({
+  id: '/admin/users',
+  path: '/admin/users',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CategorySlugRoute = CategorySlugRouteImport.update({
   id: '/category/$slug',
   path: '/category/$slug',
@@ -82,6 +130,36 @@ const SellerIdRoute = SellerIdRouteImport.update({
   path: '/seller/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SellerDashboardRoute = SellerDashboardRouteImport.update({
+  id: '/seller/dashboard',
+  path: '/seller/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SellerInquiriesRoute = SellerInquiriesRouteImport.update({
+  id: '/seller/inquiries',
+  path: '/seller/inquiries',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SellerProfileRoute = SellerProfileRouteImport.update({
+  id: '/seller/profile',
+  path: '/seller/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SellerPropertiesIndexRoute = SellerPropertiesIndexRouteImport.update({
+  id: '/seller/properties/',
+  path: '/seller/properties/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SellerPropertiesCreateRoute = SellerPropertiesCreateRouteImport.update({
+  id: '/seller/properties/create',
+  path: '/seller/properties/create',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SellerPropertiesIdEditRoute = SellerPropertiesIdEditRouteImport.update({
+  id: '/seller/properties/$id/edit',
+  path: '/seller/properties/$id/edit',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -92,10 +170,23 @@ export interface FileRoutesByFullPath {
   '/register': typeof RegisterRoute
   '/reset-password': typeof ResetPasswordRoute
   '/saved': typeof SavedRoute
+  '/admin/categories': typeof AdminCategoriesRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/admin/properties': typeof AdminPropertiesRoute
+  '/admin/reports': typeof AdminReportsRoute
+  '/admin/sellers': typeof AdminSellersRoute
+  '/admin/users': typeof AdminUsersRoute
   '/category/$slug': typeof CategorySlugRoute
   '/properties/$id': typeof PropertiesIdRoute
   '/seller/$id': typeof SellerIdRoute
+  '/seller/dashboard': typeof SellerDashboardRoute
+  '/seller/inquiries': typeof SellerInquiriesRoute
+  '/seller/profile': typeof SellerProfileRoute
+  '/admin/': typeof AdminIndexRoute
   '/properties/': typeof PropertiesIndexRoute
+  '/seller/properties/create': typeof SellerPropertiesCreateRoute
+  '/seller/properties/': typeof SellerPropertiesIndexRoute
+  '/seller/properties/$id/edit': typeof SellerPropertiesIdEditRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -106,10 +197,23 @@ export interface FileRoutesByTo {
   '/register': typeof RegisterRoute
   '/reset-password': typeof ResetPasswordRoute
   '/saved': typeof SavedRoute
+  '/admin/categories': typeof AdminCategoriesRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/admin/properties': typeof AdminPropertiesRoute
+  '/admin/reports': typeof AdminReportsRoute
+  '/admin/sellers': typeof AdminSellersRoute
+  '/admin/users': typeof AdminUsersRoute
   '/category/$slug': typeof CategorySlugRoute
   '/properties/$id': typeof PropertiesIdRoute
   '/seller/$id': typeof SellerIdRoute
+  '/seller/dashboard': typeof SellerDashboardRoute
+  '/seller/inquiries': typeof SellerInquiriesRoute
+  '/seller/profile': typeof SellerProfileRoute
+  '/admin': typeof AdminIndexRoute
   '/properties': typeof PropertiesIndexRoute
+  '/seller/properties/create': typeof SellerPropertiesCreateRoute
+  '/seller/properties': typeof SellerPropertiesIndexRoute
+  '/seller/properties/$id/edit': typeof SellerPropertiesIdEditRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -121,10 +225,23 @@ export interface FileRoutesById {
   '/register': typeof RegisterRoute
   '/reset-password': typeof ResetPasswordRoute
   '/saved': typeof SavedRoute
+  '/admin/categories': typeof AdminCategoriesRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/admin/properties': typeof AdminPropertiesRoute
+  '/admin/reports': typeof AdminReportsRoute
+  '/admin/sellers': typeof AdminSellersRoute
+  '/admin/users': typeof AdminUsersRoute
   '/category/$slug': typeof CategorySlugRoute
   '/properties/$id': typeof PropertiesIdRoute
   '/seller/$id': typeof SellerIdRoute
+  '/seller/dashboard': typeof SellerDashboardRoute
+  '/seller/inquiries': typeof SellerInquiriesRoute
+  '/seller/profile': typeof SellerProfileRoute
+  '/admin/': typeof AdminIndexRoute
   '/properties/': typeof PropertiesIndexRoute
+  '/seller/properties/create': typeof SellerPropertiesCreateRoute
+  '/seller/properties/': typeof SellerPropertiesIndexRoute
+  '/seller/properties/$id/edit': typeof SellerPropertiesIdEditRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -137,10 +254,23 @@ export interface FileRouteTypes {
     | '/register'
     | '/reset-password'
     | '/saved'
+    | '/admin/categories'
+    | '/admin/login'
+    | '/admin/properties'
+    | '/admin/reports'
+    | '/admin/sellers'
+    | '/admin/users'
     | '/category/$slug'
     | '/properties/$id'
     | '/seller/$id'
+    | '/seller/dashboard'
+    | '/seller/inquiries'
+    | '/seller/profile'
+    | '/admin/'
     | '/properties/'
+    | '/seller/properties/create'
+    | '/seller/properties/'
+    | '/seller/properties/$id/edit'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -151,10 +281,23 @@ export interface FileRouteTypes {
     | '/register'
     | '/reset-password'
     | '/saved'
+    | '/admin/categories'
+    | '/admin/login'
+    | '/admin/properties'
+    | '/admin/reports'
+    | '/admin/sellers'
+    | '/admin/users'
     | '/category/$slug'
     | '/properties/$id'
     | '/seller/$id'
+    | '/seller/dashboard'
+    | '/seller/inquiries'
+    | '/seller/profile'
+    | '/admin'
     | '/properties'
+    | '/seller/properties/create'
+    | '/seller/properties'
+    | '/seller/properties/$id/edit'
   id:
     | '__root__'
     | '/'
@@ -165,10 +308,23 @@ export interface FileRouteTypes {
     | '/register'
     | '/reset-password'
     | '/saved'
+    | '/admin/categories'
+    | '/admin/login'
+    | '/admin/properties'
+    | '/admin/reports'
+    | '/admin/sellers'
+    | '/admin/users'
     | '/category/$slug'
     | '/properties/$id'
     | '/seller/$id'
+    | '/seller/dashboard'
+    | '/seller/inquiries'
+    | '/seller/profile'
+    | '/admin/'
     | '/properties/'
+    | '/seller/properties/create'
+    | '/seller/properties/'
+    | '/seller/properties/$id/edit'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -180,10 +336,23 @@ export interface RootRouteChildren {
   RegisterRoute: typeof RegisterRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   SavedRoute: typeof SavedRoute
+  AdminCategoriesRoute: typeof AdminCategoriesRoute
+  AdminLoginRoute: typeof AdminLoginRoute
+  AdminPropertiesRoute: typeof AdminPropertiesRoute
+  AdminReportsRoute: typeof AdminReportsRoute
+  AdminSellersRoute: typeof AdminSellersRoute
+  AdminUsersRoute: typeof AdminUsersRoute
   CategorySlugRoute: typeof CategorySlugRoute
   PropertiesIdRoute: typeof PropertiesIdRoute
   SellerIdRoute: typeof SellerIdRoute
+  SellerDashboardRoute: typeof SellerDashboardRoute
+  SellerInquiriesRoute: typeof SellerInquiriesRoute
+  SellerProfileRoute: typeof SellerProfileRoute
+  AdminIndexRoute: typeof AdminIndexRoute
   PropertiesIndexRoute: typeof PropertiesIndexRoute
+  SellerPropertiesCreateRoute: typeof SellerPropertiesCreateRoute
+  SellerPropertiesIndexRoute: typeof SellerPropertiesIndexRoute
+  SellerPropertiesIdEditRoute: typeof SellerPropertiesIdEditRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -244,6 +413,55 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SavedRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/': {
+      id: '/admin/'
+      path: '/admin'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/categories': {
+      id: '/admin/categories'
+      path: '/admin/categories'
+      fullPath: '/admin/categories'
+      preLoaderRoute: typeof AdminCategoriesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/login': {
+      id: '/admin/login'
+      path: '/admin/login'
+      fullPath: '/admin/login'
+      preLoaderRoute: typeof AdminLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/properties': {
+      id: '/admin/properties'
+      path: '/admin/properties'
+      fullPath: '/admin/properties'
+      preLoaderRoute: typeof AdminPropertiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/reports': {
+      id: '/admin/reports'
+      path: '/admin/reports'
+      fullPath: '/admin/reports'
+      preLoaderRoute: typeof AdminReportsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/sellers': {
+      id: '/admin/sellers'
+      path: '/admin/sellers'
+      fullPath: '/admin/sellers'
+      preLoaderRoute: typeof AdminSellersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/users': {
+      id: '/admin/users'
+      path: '/admin/users'
+      fullPath: '/admin/users'
+      preLoaderRoute: typeof AdminUsersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/category/$slug': {
       id: '/category/$slug'
       path: '/category/$slug'
@@ -272,6 +490,48 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SellerIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/seller/dashboard': {
+      id: '/seller/dashboard'
+      path: '/seller/dashboard'
+      fullPath: '/seller/dashboard'
+      preLoaderRoute: typeof SellerDashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/seller/inquiries': {
+      id: '/seller/inquiries'
+      path: '/seller/inquiries'
+      fullPath: '/seller/inquiries'
+      preLoaderRoute: typeof SellerInquiriesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/seller/profile': {
+      id: '/seller/profile'
+      path: '/seller/profile'
+      fullPath: '/seller/profile'
+      preLoaderRoute: typeof SellerProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/seller/properties/': {
+      id: '/seller/properties/'
+      path: '/seller/properties'
+      fullPath: '/seller/properties/'
+      preLoaderRoute: typeof SellerPropertiesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/seller/properties/create': {
+      id: '/seller/properties/create'
+      path: '/seller/properties/create'
+      fullPath: '/seller/properties/create'
+      preLoaderRoute: typeof SellerPropertiesCreateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/seller/properties/$id/edit': {
+      id: '/seller/properties/$id/edit'
+      path: '/seller/properties/$id/edit'
+      fullPath: '/seller/properties/$id/edit'
+      preLoaderRoute: typeof SellerPropertiesIdEditRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -284,10 +544,23 @@ const rootRouteChildren: RootRouteChildren = {
   RegisterRoute: RegisterRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   SavedRoute: SavedRoute,
+  AdminCategoriesRoute: AdminCategoriesRoute,
+  AdminLoginRoute: AdminLoginRoute,
+  AdminPropertiesRoute: AdminPropertiesRoute,
+  AdminReportsRoute: AdminReportsRoute,
+  AdminSellersRoute: AdminSellersRoute,
+  AdminUsersRoute: AdminUsersRoute,
   CategorySlugRoute: CategorySlugRoute,
   PropertiesIdRoute: PropertiesIdRoute,
   SellerIdRoute: SellerIdRoute,
+  SellerDashboardRoute: SellerDashboardRoute,
+  SellerInquiriesRoute: SellerInquiriesRoute,
+  SellerProfileRoute: SellerProfileRoute,
+  AdminIndexRoute: AdminIndexRoute,
   PropertiesIndexRoute: PropertiesIndexRoute,
+  SellerPropertiesCreateRoute: SellerPropertiesCreateRoute,
+  SellerPropertiesIndexRoute: SellerPropertiesIndexRoute,
+  SellerPropertiesIdEditRoute: SellerPropertiesIdEditRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
