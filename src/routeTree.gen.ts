@@ -21,6 +21,12 @@ import { Route as CategorySlugRouteImport } from './routes/category.$slug'
 import { Route as PropertiesIndexRouteImport } from './routes/properties.index'
 import { Route as PropertiesIdRouteImport } from './routes/properties.$id'
 import { Route as SellerIdRouteImport } from './routes/seller.$id'
+import { Route as SellerDashboardRouteImport } from './routes/seller.dashboard'
+import { Route as SellerInquiriesRouteImport } from './routes/seller.inquiries'
+import { Route as SellerProfileRouteImport } from './routes/seller.profile'
+import { Route as SellerPropertiesIndexRouteImport } from './routes/seller.properties.index'
+import { Route as SellerPropertiesCreateRouteImport } from './routes/seller.properties.create'
+import { Route as SellerPropertiesIdEditRouteImport } from './routes/seller.properties.$id.edit'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -82,6 +88,36 @@ const SellerIdRoute = SellerIdRouteImport.update({
   path: '/seller/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SellerDashboardRoute = SellerDashboardRouteImport.update({
+  id: '/seller/dashboard',
+  path: '/seller/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SellerInquiriesRoute = SellerInquiriesRouteImport.update({
+  id: '/seller/inquiries',
+  path: '/seller/inquiries',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SellerProfileRoute = SellerProfileRouteImport.update({
+  id: '/seller/profile',
+  path: '/seller/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SellerPropertiesIndexRoute = SellerPropertiesIndexRouteImport.update({
+  id: '/seller/properties/',
+  path: '/seller/properties/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SellerPropertiesCreateRoute = SellerPropertiesCreateRouteImport.update({
+  id: '/seller/properties/create',
+  path: '/seller/properties/create',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SellerPropertiesIdEditRoute = SellerPropertiesIdEditRouteImport.update({
+  id: '/seller/properties/$id/edit',
+  path: '/seller/properties/$id/edit',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -95,7 +131,13 @@ export interface FileRoutesByFullPath {
   '/category/$slug': typeof CategorySlugRoute
   '/properties/$id': typeof PropertiesIdRoute
   '/seller/$id': typeof SellerIdRoute
+  '/seller/dashboard': typeof SellerDashboardRoute
+  '/seller/inquiries': typeof SellerInquiriesRoute
+  '/seller/profile': typeof SellerProfileRoute
   '/properties/': typeof PropertiesIndexRoute
+  '/seller/properties/create': typeof SellerPropertiesCreateRoute
+  '/seller/properties/': typeof SellerPropertiesIndexRoute
+  '/seller/properties/$id/edit': typeof SellerPropertiesIdEditRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -109,7 +151,13 @@ export interface FileRoutesByTo {
   '/category/$slug': typeof CategorySlugRoute
   '/properties/$id': typeof PropertiesIdRoute
   '/seller/$id': typeof SellerIdRoute
+  '/seller/dashboard': typeof SellerDashboardRoute
+  '/seller/inquiries': typeof SellerInquiriesRoute
+  '/seller/profile': typeof SellerProfileRoute
   '/properties': typeof PropertiesIndexRoute
+  '/seller/properties/create': typeof SellerPropertiesCreateRoute
+  '/seller/properties': typeof SellerPropertiesIndexRoute
+  '/seller/properties/$id/edit': typeof SellerPropertiesIdEditRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -124,7 +172,13 @@ export interface FileRoutesById {
   '/category/$slug': typeof CategorySlugRoute
   '/properties/$id': typeof PropertiesIdRoute
   '/seller/$id': typeof SellerIdRoute
+  '/seller/dashboard': typeof SellerDashboardRoute
+  '/seller/inquiries': typeof SellerInquiriesRoute
+  '/seller/profile': typeof SellerProfileRoute
   '/properties/': typeof PropertiesIndexRoute
+  '/seller/properties/create': typeof SellerPropertiesCreateRoute
+  '/seller/properties/': typeof SellerPropertiesIndexRoute
+  '/seller/properties/$id/edit': typeof SellerPropertiesIdEditRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -140,7 +194,13 @@ export interface FileRouteTypes {
     | '/category/$slug'
     | '/properties/$id'
     | '/seller/$id'
+    | '/seller/dashboard'
+    | '/seller/inquiries'
+    | '/seller/profile'
     | '/properties/'
+    | '/seller/properties/create'
+    | '/seller/properties/'
+    | '/seller/properties/$id/edit'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -154,7 +214,13 @@ export interface FileRouteTypes {
     | '/category/$slug'
     | '/properties/$id'
     | '/seller/$id'
+    | '/seller/dashboard'
+    | '/seller/inquiries'
+    | '/seller/profile'
     | '/properties'
+    | '/seller/properties/create'
+    | '/seller/properties'
+    | '/seller/properties/$id/edit'
   id:
     | '__root__'
     | '/'
@@ -168,7 +234,13 @@ export interface FileRouteTypes {
     | '/category/$slug'
     | '/properties/$id'
     | '/seller/$id'
+    | '/seller/dashboard'
+    | '/seller/inquiries'
+    | '/seller/profile'
     | '/properties/'
+    | '/seller/properties/create'
+    | '/seller/properties/'
+    | '/seller/properties/$id/edit'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -183,7 +255,13 @@ export interface RootRouteChildren {
   CategorySlugRoute: typeof CategorySlugRoute
   PropertiesIdRoute: typeof PropertiesIdRoute
   SellerIdRoute: typeof SellerIdRoute
+  SellerDashboardRoute: typeof SellerDashboardRoute
+  SellerInquiriesRoute: typeof SellerInquiriesRoute
+  SellerProfileRoute: typeof SellerProfileRoute
   PropertiesIndexRoute: typeof PropertiesIndexRoute
+  SellerPropertiesCreateRoute: typeof SellerPropertiesCreateRoute
+  SellerPropertiesIndexRoute: typeof SellerPropertiesIndexRoute
+  SellerPropertiesIdEditRoute: typeof SellerPropertiesIdEditRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -272,6 +350,48 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SellerIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/seller/dashboard': {
+      id: '/seller/dashboard'
+      path: '/seller/dashboard'
+      fullPath: '/seller/dashboard'
+      preLoaderRoute: typeof SellerDashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/seller/inquiries': {
+      id: '/seller/inquiries'
+      path: '/seller/inquiries'
+      fullPath: '/seller/inquiries'
+      preLoaderRoute: typeof SellerInquiriesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/seller/profile': {
+      id: '/seller/profile'
+      path: '/seller/profile'
+      fullPath: '/seller/profile'
+      preLoaderRoute: typeof SellerProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/seller/properties/': {
+      id: '/seller/properties/'
+      path: '/seller/properties'
+      fullPath: '/seller/properties/'
+      preLoaderRoute: typeof SellerPropertiesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/seller/properties/create': {
+      id: '/seller/properties/create'
+      path: '/seller/properties/create'
+      fullPath: '/seller/properties/create'
+      preLoaderRoute: typeof SellerPropertiesCreateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/seller/properties/$id/edit': {
+      id: '/seller/properties/$id/edit'
+      path: '/seller/properties/$id/edit'
+      fullPath: '/seller/properties/$id/edit'
+      preLoaderRoute: typeof SellerPropertiesIdEditRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -287,7 +407,13 @@ const rootRouteChildren: RootRouteChildren = {
   CategorySlugRoute: CategorySlugRoute,
   PropertiesIdRoute: PropertiesIdRoute,
   SellerIdRoute: SellerIdRoute,
+  SellerDashboardRoute: SellerDashboardRoute,
+  SellerInquiriesRoute: SellerInquiriesRoute,
+  SellerProfileRoute: SellerProfileRoute,
   PropertiesIndexRoute: PropertiesIndexRoute,
+  SellerPropertiesCreateRoute: SellerPropertiesCreateRoute,
+  SellerPropertiesIndexRoute: SellerPropertiesIndexRoute,
+  SellerPropertiesIdEditRoute: SellerPropertiesIdEditRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
