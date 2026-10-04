@@ -67,7 +67,7 @@ function AdminLogin() {
           {loading ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
           Masuk
         </Button>
-        <p className="text-xs text-muted-foreground">Akun demo: admin@myproperty.id / 123456</p>
+        <p className="text-xs text-muted-foreground">Akun demo: admin@myproperty.id / admin123</p>
       </form>
     </AuthLayout>
   );

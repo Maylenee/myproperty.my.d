@@ -115,9 +115,9 @@ function LoginPage() {
       <div className="mt-6 border-t border-border pt-4">
         <p className="text-xs font-bold uppercase tracking-wide text-muted-foreground">Akun demo</p>
         <ul className="mt-2 space-y-1 text-xs text-muted-foreground">
-          <li>Pembeli: rina@email.com / 123456</li>
-          <li>Penjual: andi@email.com / 123456</li>
-          <li>Admin: admin@myproperty.id / 123456</li>
+          <li>Pembeli: rina@buyer.id / buyer123</li>
+          <li>Penjual: andi@seller.id / seller123</li>
+          <li>Admin: admin@myproperty.id / admin123</li>
         </ul>
       </div>
     </AuthLayout>
