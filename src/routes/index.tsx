@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { Link, createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import {
   ArrowRight,
@@ -142,6 +142,22 @@ function PropertyCard({ image, badge, title, location, price, meta }: { image: s
 
 function Index() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const onSearch = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    const tipe = String(data.get("tipe") ?? "");
+    const harga = String(data.get("harga") ?? "");
+    navigate({
+      to: "/properties",
+      search: {
+        q: String(data.get("q") ?? "") || undefined,
+        tipe: tipe || undefined,
+        transaksi: String(data.get("transaksi") ?? "") || undefined,
+        maks: harga || undefined,
+      },
+    });
+  };
 
   return (
     <main id="top" className="overflow-hidden bg-background">
@@ -149,13 +165,13 @@ function Index() {
         <div className="mx-auto flex h-18 max-w-7xl items-center justify-between px-5 lg:px-8">
           <Logo />
           <nav className="hidden items-center gap-8 md:flex" aria-label="Navigasi utama">
-            <a href="#preview" className="text-sm font-semibold text-foreground hover:text-primary">Cari Properti</a>
+            <Link to="/properties" className="text-sm font-semibold text-foreground hover:text-primary">Cari Properti</Link>
             <a href="#cara-kerja" className="text-sm font-semibold text-foreground hover:text-primary">Cara Kerja</a>
             <a href="#faq" className="text-sm font-semibold text-foreground hover:text-primary">Bantuan</a>
           </nav>
           <div className="hidden items-center gap-3 md:flex">
-            <Button variant="ghost">Masuk</Button>
-            <Button asChild><a href="#harga">Pasang Properti</a></Button>
+            <Button variant="ghost" asChild><Link to="/login">Masuk</Link></Button>
+            <Button asChild><Link to="/seller/properties/create">Pasang Properti</Link></Button>
           </div>
           <Button variant="ghost" size="icon" className="md:hidden" onClick={() => setMenuOpen((open) => !open)} aria-label="Buka menu" aria-expanded={menuOpen}>
             {menuOpen ? <X className="size-5" /> : <Menu className="size-5" />}
@@ -164,10 +180,10 @@ function Index() {
         {menuOpen ? (
           <div className="border-t border-border bg-background px-5 py-5 md:hidden">
             <nav className="flex flex-col gap-4" aria-label="Navigasi seluler">
-              <a href="#preview" onClick={() => setMenuOpen(false)} className="font-semibold">Cari Properti</a>
+              <Link to="/properties" className="font-semibold">Cari Properti</Link>
               <a href="#cara-kerja" onClick={() => setMenuOpen(false)} className="font-semibold">Cara Kerja</a>
               <a href="#faq" onClick={() => setMenuOpen(false)} className="font-semibold">Bantuan</a>
-              <div className="grid grid-cols-2 gap-3 pt-2"><Button variant="secondary">Masuk</Button><Button asChild><a href="#harga">Pasang Properti</a></Button></div>
+              <div className="grid grid-cols-2 gap-3 pt-2"><Button variant="secondary" asChild><Link to="/login">Masuk</Link></Button><Button asChild><Link to="/seller/properties/create">Pasang Properti</Link></Button></div>
             </nav>
           </div>
         ) : null}
@@ -184,24 +200,24 @@ function Index() {
             <h1 className="font-display text-5xl leading-[1.04] sm:text-6xl lg:text-7xl">Temukan Properti yang Tepat untukmu.</h1>
             <p className="mt-6 max-w-2xl text-base leading-7 text-primary-foreground/85 sm:text-xl sm:leading-8">Cari rumah, tanah, apartemen, ruko, kost, dan villa untuk dibeli atau disewa dalam satu marketplace.</p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Button variant="hero" size="lg" asChild><a href="#preview">Cari Properti <ArrowRight className="size-4" /></a></Button>
-              <Button variant="heroOutline" size="lg" asChild><a href="#harga">Pasang Properti</a></Button>
+              <Button variant="hero" size="lg" asChild><Link to="/properties">Cari Properti <ArrowRight className="size-4" /></Link></Button>
+              <Button variant="heroOutline" size="lg" asChild><Link to="/seller/properties/create">Pasang Properti</Link></Button>
             </div>
           </div>
 
-          <form className="mt-12 grid gap-2 rounded-md bg-background p-3 text-foreground shadow-xl md:grid-cols-[1.2fr_1fr_1fr_1fr_auto]" onSubmit={(event) => event.preventDefault()}>
+          <form className="mt-12 grid gap-2 rounded-md bg-background p-3 text-foreground shadow-xl md:grid-cols-[1.2fr_1fr_1fr_1fr_auto]" onSubmit={onSearch}>
             <label className="flex min-h-16 items-center gap-3 rounded-sm px-3 hover:bg-muted">
               <MapPin className="size-5 shrink-0 text-primary" />
-              <span className="min-w-0 flex-1"><span className="block text-[10px] font-bold uppercase text-muted-foreground">Lokasi</span><input aria-label="Lokasi" placeholder="Kota atau area" className="mt-1 w-full bg-transparent text-sm font-semibold outline-none placeholder:text-muted-foreground" /></span>
+              <span className="min-w-0 flex-1"><span className="block text-[10px] font-bold uppercase text-muted-foreground">Lokasi</span><input name="q" aria-label="Lokasi" placeholder="Kota atau area" className="mt-1 w-full bg-transparent text-sm font-semibold outline-none placeholder:text-muted-foreground" /></span>
             </label>
             <label className="flex min-h-16 items-center gap-3 rounded-sm border-t border-border px-3 md:border-l md:border-t-0">
-              <Building2 className="size-5 shrink-0 text-primary" /><span className="min-w-0 flex-1"><span className="block text-[10px] font-bold uppercase text-muted-foreground">Tipe Properti</span><select aria-label="Tipe Properti" className="mt-1 w-full bg-transparent text-sm font-semibold outline-none"><option>Semua tipe</option><option>Rumah</option><option>Apartemen</option><option>Tanah</option><option>Ruko</option></select></span>
+              <Building2 className="size-5 shrink-0 text-primary" /><span className="min-w-0 flex-1"><span className="block text-[10px] font-bold uppercase text-muted-foreground">Tipe Properti</span><select name="tipe" aria-label="Tipe Properti" className="mt-1 w-full bg-transparent text-sm font-semibold outline-none"><option value="">Semua tipe</option><option value="rumah">Rumah</option><option value="tanah">Tanah</option><option value="apartemen">Apartemen</option><option value="ruko">Ruko</option><option value="kost">Kost</option><option value="villa">Villa</option><option value="gudang">Gudang</option><option value="gedung">Gedung/Tempat Usaha</option></select></span>
             </label>
             <label className="flex min-h-16 items-center gap-3 rounded-sm border-t border-border px-3 md:border-l md:border-t-0">
-              <CircleCheck className="size-5 shrink-0 text-primary" /><span className="min-w-0 flex-1"><span className="block text-[10px] font-bold uppercase text-muted-foreground">Transaksi</span><select aria-label="Transaksi" className="mt-1 w-full bg-transparent text-sm font-semibold outline-none"><option>Dijual</option><option>Disewa</option></select></span>
+              <CircleCheck className="size-5 shrink-0 text-primary" /><span className="min-w-0 flex-1"><span className="block text-[10px] font-bold uppercase text-muted-foreground">Transaksi</span><select name="transaksi" aria-label="Transaksi" className="mt-1 w-full bg-transparent text-sm font-semibold outline-none"><option value="">Semua</option><option value="dijual">Dijual</option><option value="disewa">Disewa</option></select></span>
             </label>
             <label className="flex min-h-16 items-center gap-3 rounded-sm border-t border-border px-3 md:border-l md:border-t-0">
-              <span className="font-extrabold text-primary">Rp</span><span className="min-w-0 flex-1"><span className="block text-[10px] font-bold uppercase text-muted-foreground">Rentang Harga</span><select aria-label="Rentang Harga" className="mt-1 w-full bg-transparent text-sm font-semibold outline-none"><option>Semua harga</option><option>&lt; Rp500 juta</option><option>Rp500 jt–Rp2 M</option><option>&gt; Rp2 miliar</option></select></span>
+              <span className="font-extrabold text-primary">Rp</span><span className="min-w-0 flex-1"><span className="block text-[10px] font-bold uppercase text-muted-foreground">Rentang Harga</span><select name="harga" aria-label="Harga maksimum" className="mt-1 w-full bg-transparent text-sm font-semibold outline-none"><option value="">Semua harga</option><option value="500000000">≤ Rp500 juta</option><option value="1000000000">≤ Rp1 miliar</option><option value="2000000000">≤ Rp2 miliar</option></select></span>
             </label>
             <Button type="submit" size="lg" className="h-16"><Search className="size-5" />Cari</Button>
           </form>
@@ -300,7 +316,7 @@ function Index() {
 
       <section className="px-5 py-24 lg:px-8">
         <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-2 lg:items-center">
-          <div><SectionHeading eyebrow="Manfaat" title="Lebih cepat menemukan yang benar-benar cocok." body="MyProperty merapikan proses yang biasanya panjang agar pembeli dan seller bisa fokus pada keputusan yang penting." /><Button className="mt-8" asChild><a href="#preview">Mulai cari properti <ArrowRight className="size-4" /></a></Button></div>
+          <div><SectionHeading eyebrow="Manfaat" title="Lebih cepat menemukan yang benar-benar cocok." body="MyProperty merapikan proses yang biasanya panjang agar pembeli dan seller bisa fokus pada keputusan yang penting." /><Button className="mt-8" asChild><Link to="/properties">Mulai cari properti <ArrowRight className="size-4" /></Link></Button></div>
           <div className="grid gap-3 sm:grid-cols-2">{benefits.map((benefit) => <div key={benefit} className="flex min-h-20 items-center gap-3 border-b border-border py-4"><span className="grid size-7 shrink-0 place-items-center rounded-full bg-secondary text-primary"><Check className="size-4" strokeWidth={3} /></span><span className="text-sm font-bold">{benefit}</span></div>)}</div>
         </div>
       </section>
@@ -323,11 +339,11 @@ function Index() {
       </section>
 
       <section className="bg-primary px-5 py-20 text-primary-foreground lg:px-8">
-        <div className="mx-auto flex max-w-7xl flex-col gap-8 lg:flex-row lg:items-end lg:justify-between"><div className="max-w-3xl"><p className="mb-3 text-xs font-extrabold uppercase text-accent">Mulai sekarang</p><h2 className="font-display text-4xl leading-tight sm:text-6xl">Properti yang Kamu Cari Bisa Dimulai dari Sini.</h2><p className="mt-5 text-primary-foreground/70">Cari, bandingkan, simpan, dan hubungi penjual dalam satu marketplace.</p></div><div className="flex shrink-0 flex-wrap gap-3"><Button variant="hero" size="lg" asChild><a href="#preview">Cari Properti</a></Button><Button variant="heroOutline" size="lg" asChild><a href="#harga">Pasang Properti</a></Button></div></div>
+        <div className="mx-auto flex max-w-7xl flex-col gap-8 lg:flex-row lg:items-end lg:justify-between"><div className="max-w-3xl"><p className="mb-3 text-xs font-extrabold uppercase text-accent">Mulai sekarang</p><h2 className="font-display text-4xl leading-tight sm:text-6xl">Properti yang Kamu Cari Bisa Dimulai dari Sini.</h2><p className="mt-5 text-primary-foreground/70">Cari, bandingkan, simpan, dan hubungi penjual dalam satu marketplace.</p></div><div className="flex shrink-0 flex-wrap gap-3"><Button variant="hero" size="lg" asChild><Link to="/properties">Cari Properti</Link></Button><Button variant="heroOutline" size="lg" asChild><Link to="/seller/properties/create">Pasang Properti</Link></Button></div></div>
       </section>
 
       <footer className="bg-foreground px-5 py-16 text-background lg:px-8">
-        <div className="mx-auto max-w-7xl"><div className="grid gap-10 border-b border-background/15 pb-12 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]"><div><Logo inverse /><p className="mt-5 max-w-xs text-sm leading-6 text-background/60">Marketplace properti untuk mencari, membandingkan, dan terhubung langsung dengan seller.</p></div>{[["Jelajahi", ["Rumah", "Tanah", "Apartemen", "Ruko", "Kost", "Villa"]], ["Untuk Seller", ["Pasang Properti", "Kelola Listing"]], ["Bantuan", ["Cara Kerja", "Pusat Bantuan", "Hubungi Kami"]]].map(([title, items]) => <div key={title as string}><h3 className="text-sm font-bold">{title as string}</h3><ul className="mt-5 space-y-3">{(items as string[]).map((item) => <li key={item}><a href="#top" className="text-sm text-background/60 hover:text-background">{item}</a></li>)}</ul></div>)}</div><div className="flex flex-col gap-4 pt-7 text-xs text-background/50 sm:flex-row sm:items-center sm:justify-between"><p>© 2026 MyProperty. Hak cipta dilindungi.</p><div className="flex gap-5"><a href="#top" className="hover:text-background">Privacy Policy</a><a href="#top" className="hover:text-background">Terms</a></div></div></div>
+        <div className="mx-auto max-w-7xl"><div className="grid gap-10 border-b border-background/15 pb-12 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]"><div><Logo inverse /><p className="mt-5 max-w-xs text-sm leading-6 text-background/60">Marketplace properti untuk mencari, membandingkan, dan terhubung langsung dengan seller.</p></div>{[["Jelajahi", ["Rumah", "Tanah", "Apartemen", "Ruko", "Kost", "Villa"]], ["Untuk Seller", ["Pasang Properti", "Kelola Listing"]], ["Bantuan", ["Cara Kerja", "Pusat Bantuan", "Hubungi Kami"]]].map(([title, items]) => <div key={title as string}><h3 className="text-sm font-bold">{title as string}</h3><ul className="mt-5 space-y-3">{(items as string[]).map((item) => <li key={item}><a href={({Rumah:"/category/rumah",Tanah:"/category/tanah",Apartemen:"/category/apartemen",Ruko:"/category/ruko",Kost:"/category/kost",Villa:"/category/villa","Pasang Properti":"/seller/properties/create","Kelola Listing":"/seller/properties","Cara Kerja":"#cara-kerja","Pusat Bantuan":"#faq","Hubungi Kami":"#faq"} as Record<string,string>)[item] ?? "#top"} className="text-sm text-background/60 hover:text-background">{item}</a></li>)}</ul></div>)}</div><div className="flex flex-col gap-4 pt-7 text-xs text-background/50 sm:flex-row sm:items-center sm:justify-between"><p>© 2026 MyProperty. Hak cipta dilindungi.</p><div className="flex gap-5"><a href="#top" className="hover:text-background">Privacy Policy</a><a href="#top" className="hover:text-background">Terms</a></div></div></div>
       </footer>
     </main>
   );

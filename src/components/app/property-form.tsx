@@ -322,7 +322,7 @@ export function PropertyForm({
           <PhotoUploader
             photos={values.photos}
             error={errors.photos}
-            fallback={photoByType[values.type] ?? photoByType.rumah}
+            fallback={photoByType[values.type] ?? photoByType.rumah ?? ""}
             onChange={(photos) => set({ photos })}
           />
         ) : null}
