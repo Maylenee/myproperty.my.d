@@ -12,11 +12,11 @@ import { applyFilters, defaultFilters, sortProperties, type Filters, type SortKe
 import { isPublic, useStore } from "@/lib/store";
 
 export const Route = createFileRoute("/properties/")({
-  validateSearch: (search: Record<string, unknown>) => ({
-    q: typeof search.q === "string" ? search.q : "",
-    tipe: typeof search.tipe === "string" ? search.tipe : "",
-    transaksi: typeof search.transaksi === "string" ? search.transaksi : "",
-    maks: typeof search.maks === "string" ? search.maks : "",
+  validateSearch: (search: Record<string, unknown>): { q?: string; tipe?: string; transaksi?: string; maks?: string } => ({
+    q: typeof search.q === "string" ? search.q : undefined,
+    tipe: typeof search.tipe === "string" ? search.tipe : undefined,
+    transaksi: typeof search.transaksi === "string" ? search.transaksi : undefined,
+    maks: typeof search.maks === "string" ? search.maks : undefined,
   }),
   head: () => ({
     meta: [
@@ -42,12 +42,12 @@ function PropertiesPage() {
   const { state, hydrated } = useStore();
   const [filters, setFilters] = useState<Filters>({
     ...defaultFilters,
-    q: search.q,
+    q: search.q ?? "",
     types: search.tipe ? [search.tipe] : [],
     transaction: search.transaksi === "dijual" || search.transaksi === "disewa" ? search.transaksi : "",
-    maxPrice: search.maks,
+    maxPrice: search.maks ?? "",
   });
-  const [keyword, setKeyword] = useState(search.q);
+  const [keyword, setKeyword] = useState(search.q ?? "");
   const [sort, setSort] = useState<SortKey>("terbaru");
   const [page, setPage] = useState(1);
 

@@ -10,8 +10,8 @@ import { Label } from "@/components/ui/label";
 import { useStore } from "@/lib/store";
 
 export const Route = createFileRoute("/reset-password")({
-  validateSearch: (search: Record<string, unknown>) => ({
-    email: typeof search.email === "string" ? search.email : "",
+  validateSearch: (search: Record<string, unknown>): { email?: string } => ({
+    email: typeof search.email === "string" ? search.email : undefined,
   }),
   head: () => ({
     meta: [
@@ -28,7 +28,7 @@ function ResetPasswordPage() {
   const { email: initialEmail } = Route.useSearch();
   const { resetPassword } = useStore();
   const navigate = useNavigate();
-  const [email, setEmail] = useState(initialEmail);
+  const [email, setEmail] = useState(initialEmail ?? "");
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const [errors, setErrors] = useState<Record<string, string>>({});
