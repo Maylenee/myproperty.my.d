@@ -32,14 +32,25 @@ const roleLabel = { buyer: "Pembeli", seller: "Penjual", admin: "Admin" } as con
 function AdminUsers() {
   const { state } = useStore();
   const [q, setQ] = useState("");
-  const users = state.users.filter((u) => `${u.name} ${u.email}`.toLowerCase().includes(q.toLowerCase()));
+  const users = state.users.filter((u) =>
+    `${u.name} ${u.email}`.toLowerCase().includes(q.toLowerCase()),
+  );
 
   return (
     <div className="space-y-6">
       <PageHeader title="Kelola User" description="Semua akun yang terdaftar di MyProperty." />
       <div className="relative sm:w-72">
-        <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" aria-hidden />
-        <Input aria-label="Cari user" placeholder="Cari nama atau email" value={q} onChange={(e) => setQ(e.target.value)} className="pl-9" />
+        <Search
+          className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
+          aria-hidden
+        />
+        <Input
+          aria-label="Cari user"
+          placeholder="Cari nama atau email"
+          value={q}
+          onChange={(e) => setQ(e.target.value)}
+          className="pl-9"
+        />
       </div>
       <div className="overflow-x-auto border border-border bg-card">
         <table className="w-full min-w-[560px] text-sm">
@@ -57,7 +68,9 @@ function AdminUsers() {
                 <td className="p-3 font-semibold text-foreground">{u.name}</td>
                 <td className="p-3 text-muted-foreground">{u.email}</td>
                 <td className="p-3">
-                  <span className="border border-border px-2 py-0.5 text-xs font-bold uppercase">{roleLabel[u.role]}</span>
+                  <span className="border border-border px-2 py-0.5 text-xs font-bold uppercase">
+                    {roleLabel[u.role]}
+                  </span>
                 </td>
                 <td className="p-3 text-muted-foreground">{formatDate(u.createdAt)}</td>
               </tr>

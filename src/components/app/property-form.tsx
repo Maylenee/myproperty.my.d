@@ -8,7 +8,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { formatPrice } from "@/lib/format";
-import { citiesByProvince, districtsByCity, facilityOptions, photoByType, provinces } from "@/lib/mock-data";
+import {
+  citiesByProvince,
+  districtsByCity,
+  facilityOptions,
+  photoByType,
+  provinces,
+} from "@/lib/mock-data";
 import { useStore } from "@/lib/store";
 import type { Property, PropertyStatus } from "@/lib/types";
 import { cn } from "@/lib/utils";
@@ -119,10 +125,12 @@ export function PropertyForm({
       if (!values.district) next.district = "Pilih kecamatan.";
     }
     if (index === 2) {
-      if (!values.landArea || Number(values.landArea) <= 0) next.landArea = "Luas tanah wajib diisi.";
+      if (!values.landArea || Number(values.landArea) <= 0)
+        next.landArea = "Luas tanah wajib diisi.";
     }
     if (index === 3) {
-      if (values.description.trim().length < 30) next.description = "Deskripsi minimal 30 karakter.";
+      if (values.description.trim().length < 30)
+        next.description = "Deskripsi minimal 30 karakter.";
     }
     if (index === 5) {
       if (values.photos.length === 0) next.photos = "Unggah minimal satu foto properti.";
@@ -179,7 +187,12 @@ export function PropertyForm({
         {step === 0 ? (
           <div className="space-y-4">
             <Field id="name" label="Nama properti" error={errors.name}>
-              <Input id="name" value={values.name} onChange={(e) => set({ name: e.target.value })} placeholder="Rumah Minimalis Modern" />
+              <Input
+                id="name"
+                value={values.name}
+                onChange={(e) => set({ name: e.target.value })}
+                placeholder="Rumah Minimalis Modern"
+              />
             </Field>
             <div className="grid gap-4 sm:grid-cols-2">
               <Field id="type" label="Kategori">
@@ -208,8 +221,21 @@ export function PropertyForm({
                 </select>
               </Field>
             </div>
-            <Field id="price" label="Harga (Rp)" error={errors.price} hint={values.price ? formatPrice(Number(values.price), values.transaction) : undefined}>
-              <Input id="price" inputMode="numeric" value={values.price} onChange={(e) => set({ price: e.target.value.replace(/\D/g, "") })} placeholder="650000000" />
+            <Field
+              id="price"
+              label="Harga (Rp)"
+              error={errors.price}
+              hint={
+                values.price ? formatPrice(Number(values.price), values.transaction) : undefined
+              }
+            >
+              <Input
+                id="price"
+                inputMode="numeric"
+                value={values.price}
+                onChange={(e) => set({ price: e.target.value.replace(/\D/g, "") })}
+                placeholder="650000000"
+              />
             </Field>
           </div>
         ) : null}
@@ -217,11 +243,21 @@ export function PropertyForm({
         {step === 1 ? (
           <div className="space-y-4">
             <Field id="address" label="Alamat lengkap" error={errors.address}>
-              <Input id="address" value={values.address} onChange={(e) => set({ address: e.target.value })} placeholder="Jl. Melati No. 12" />
+              <Input
+                id="address"
+                value={values.address}
+                onChange={(e) => set({ address: e.target.value })}
+                placeholder="Jl. Melati No. 12"
+              />
             </Field>
             <div className="grid gap-4 sm:grid-cols-3">
               <Field id="province" label="Provinsi">
-                <select id="province" className="h-10 w-full border border-input bg-card px-3 text-sm" value={values.province} onChange={(e) => set({ province: e.target.value, city: "", district: "" })}>
+                <select
+                  id="province"
+                  className="h-10 w-full border border-input bg-card px-3 text-sm"
+                  value={values.province}
+                  onChange={(e) => set({ province: e.target.value, city: "", district: "" })}
+                >
                   {provinces.map((p) => (
                     <option key={p} value={p}>
                       {p}
@@ -230,7 +266,12 @@ export function PropertyForm({
                 </select>
               </Field>
               <Field id="city" label="Kota/Kabupaten" error={errors.city}>
-                <select id="city" className="h-10 w-full border border-input bg-card px-3 text-sm" value={values.city} onChange={(e) => set({ city: e.target.value, district: "" })}>
+                <select
+                  id="city"
+                  className="h-10 w-full border border-input bg-card px-3 text-sm"
+                  value={values.city}
+                  onChange={(e) => set({ city: e.target.value, district: "" })}
+                >
                   <option value="">Pilih kota</option>
                   {(citiesByProvince[values.province] ?? []).map((c) => (
                     <option key={c} value={c}>
@@ -240,7 +281,13 @@ export function PropertyForm({
                 </select>
               </Field>
               <Field id="district" label="Kecamatan" error={errors.district}>
-                <select id="district" className="h-10 w-full border border-input bg-card px-3 text-sm" value={values.district} onChange={(e) => set({ district: e.target.value })} disabled={!values.city}>
+                <select
+                  id="district"
+                  className="h-10 w-full border border-input bg-card px-3 text-sm"
+                  value={values.district}
+                  onChange={(e) => set({ district: e.target.value })}
+                  disabled={!values.city}
+                >
                   <option value="">Pilih kecamatan</option>
                   {(districtsByCity[values.city] ?? []).map((d) => (
                     <option key={d} value={d}>
@@ -256,22 +303,52 @@ export function PropertyForm({
         {step === 2 ? (
           <div className="grid gap-4 sm:grid-cols-2">
             <Field id="landArea" label="Luas tanah (m²)" error={errors.landArea}>
-              <Input id="landArea" inputMode="numeric" value={values.landArea} onChange={(e) => set({ landArea: e.target.value.replace(/\D/g, "") })} />
+              <Input
+                id="landArea"
+                inputMode="numeric"
+                value={values.landArea}
+                onChange={(e) => set({ landArea: e.target.value.replace(/\D/g, "") })}
+              />
             </Field>
             <Field id="buildingArea" label="Luas bangunan (m²)">
-              <Input id="buildingArea" inputMode="numeric" value={values.buildingArea} onChange={(e) => set({ buildingArea: e.target.value.replace(/\D/g, "") })} />
+              <Input
+                id="buildingArea"
+                inputMode="numeric"
+                value={values.buildingArea}
+                onChange={(e) => set({ buildingArea: e.target.value.replace(/\D/g, "") })}
+              />
             </Field>
             <Field id="bedrooms" label="Kamar tidur">
-              <Input id="bedrooms" inputMode="numeric" value={values.bedrooms} onChange={(e) => set({ bedrooms: e.target.value.replace(/\D/g, "") })} />
+              <Input
+                id="bedrooms"
+                inputMode="numeric"
+                value={values.bedrooms}
+                onChange={(e) => set({ bedrooms: e.target.value.replace(/\D/g, "") })}
+              />
             </Field>
             <Field id="bathrooms" label="Kamar mandi">
-              <Input id="bathrooms" inputMode="numeric" value={values.bathrooms} onChange={(e) => set({ bathrooms: e.target.value.replace(/\D/g, "") })} />
+              <Input
+                id="bathrooms"
+                inputMode="numeric"
+                value={values.bathrooms}
+                onChange={(e) => set({ bathrooms: e.target.value.replace(/\D/g, "") })}
+              />
             </Field>
             <Field id="floors" label="Jumlah lantai">
-              <Input id="floors" inputMode="numeric" value={values.floors} onChange={(e) => set({ floors: e.target.value.replace(/\D/g, "") })} />
+              <Input
+                id="floors"
+                inputMode="numeric"
+                value={values.floors}
+                onChange={(e) => set({ floors: e.target.value.replace(/\D/g, "") })}
+              />
             </Field>
             <Field id="certificate" label="Sertifikat">
-              <select id="certificate" className="h-10 w-full border border-input bg-card px-3 text-sm" value={values.certificate} onChange={(e) => set({ certificate: e.target.value })}>
+              <select
+                id="certificate"
+                className="h-10 w-full border border-input bg-card px-3 text-sm"
+                value={values.certificate}
+                onChange={(e) => set({ certificate: e.target.value })}
+              >
                 {["SHM", "HGB", "Girik", "AJB", "Strata Title"].map((c) => (
                   <option key={c} value={c}>
                     {c}
@@ -296,7 +373,9 @@ export function PropertyForm({
 
         {step === 4 ? (
           <fieldset>
-            <legend className="mb-3 text-sm font-semibold text-foreground">Pilih fasilitas yang tersedia</legend>
+            <legend className="mb-3 text-sm font-semibold text-foreground">
+              Pilih fasilitas yang tersedia
+            </legend>
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
               {facilityOptions.map((f) => (
                 <label key={f} className="flex items-center gap-2 text-sm text-foreground">
@@ -332,7 +411,12 @@ export function PropertyForm({
 
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex gap-2">
-          <Button type="button" variant="outline" onClick={() => setStep((s) => Math.max(0, s - 1))} disabled={step === 0}>
+          <Button
+            type="button"
+            variant="outline"
+            onClick={() => setStep((s) => Math.max(0, s - 1))}
+            disabled={step === 0}
+          >
             <ArrowLeft className="size-4" aria-hidden /> Kembali
           </Button>
           {onCancel ? (
@@ -353,7 +437,11 @@ export function PropertyForm({
             </Button>
           ) : (
             <Button type="button" onClick={submit} disabled={loading}>
-              {loading ? <Loader2 className="size-4 animate-spin" aria-hidden /> : <Check className="size-4" aria-hidden />}
+              {loading ? (
+                <Loader2 className="size-4 animate-spin" aria-hidden />
+              ) : (
+                <Check className="size-4" aria-hidden />
+              )}
               {submitLabel}
             </Button>
           )}
@@ -455,8 +543,12 @@ function PhotoUploader({
         )}
       >
         <ImagePlus className="size-7 text-primary" aria-hidden />
-        <p className="mt-3 text-sm font-semibold text-foreground">Tarik foto ke sini atau pilih dari perangkat</p>
-        <p className="mt-1 text-xs text-muted-foreground">Format JPG atau PNG. Foto pertama menjadi foto utama.</p>
+        <p className="mt-3 text-sm font-semibold text-foreground">
+          Tarik foto ke sini atau pilih dari perangkat
+        </p>
+        <p className="mt-1 text-xs text-muted-foreground">
+          Format JPG atau PNG. Foto pertama menjadi foto utama.
+        </p>
         <div className="mt-4 flex flex-wrap justify-center gap-2">
           <Button type="button" variant="outline" onClick={() => inputRef.current?.click()}>
             Pilih Foto
@@ -486,7 +578,11 @@ function PhotoUploader({
           {photos.map((photo, i) => (
             <li key={photo.slice(0, 40) + i} className="border border-border bg-card">
               <div className="relative aspect-[4/3] bg-muted">
-                <img src={photo} alt={`Foto properti ${i + 1}`} className="size-full object-cover" />
+                <img
+                  src={photo}
+                  alt={`Foto properti ${i + 1}`}
+                  className="size-full object-cover"
+                />
                 {i === 0 ? (
                   <span className="absolute left-2 top-2 bg-primary px-2 py-0.5 text-[11px] font-bold uppercase text-primary-foreground">
                     Utama
@@ -495,10 +591,24 @@ function PhotoUploader({
               </div>
               <div className="flex items-center justify-between gap-1 p-2">
                 <div className="flex gap-1">
-                  <Button type="button" size="sm" variant="outline" onClick={() => move(i, -1)} disabled={i === 0} aria-label="Geser ke kiri">
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant="outline"
+                    onClick={() => move(i, -1)}
+                    disabled={i === 0}
+                    aria-label="Geser ke kiri"
+                  >
                     ←
                   </Button>
-                  <Button type="button" size="sm" variant="outline" onClick={() => move(i, 1)} disabled={i === photos.length - 1} aria-label="Geser ke kanan">
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant="outline"
+                    onClick={() => move(i, 1)}
+                    disabled={i === photos.length - 1}
+                    aria-label="Geser ke kanan"
+                  >
                     →
                   </Button>
                 </div>
@@ -534,27 +644,37 @@ function Preview({ values }: { values: PropertyFormValues }) {
           {values.photos[0] ? (
             <img src={values.photos[0]} alt="Foto utama" className="size-full object-cover" />
           ) : (
-            <div className="grid size-full place-items-center text-xs text-muted-foreground">Belum ada foto</div>
+            <div className="grid size-full place-items-center text-xs text-muted-foreground">
+              Belum ada foto
+            </div>
           )}
         </div>
         <div className="min-w-0">
           <p className="text-xs font-bold uppercase tracking-wide text-muted-foreground">
             {category?.name} · {values.transaction === "dijual" ? "Dijual" : "Disewa"}
           </p>
-          <h3 className="mt-1 font-display text-2xl text-foreground">{values.name || "Tanpa nama"}</h3>
+          <h3 className="mt-1 font-display text-2xl text-foreground">
+            {values.name || "Tanpa nama"}
+          </h3>
           <p className="mt-1 text-sm text-muted-foreground">
             {values.address}, {values.district}, {values.city}
           </p>
           <p className="mt-3 font-display text-2xl text-primary">
-            {values.price ? formatPrice(Number(values.price), values.transaction) : "Harga belum diisi"}
+            {values.price
+              ? formatPrice(Number(values.price), values.transaction)
+              : "Harga belum diisi"}
           </p>
           <p className="mt-3 text-sm text-muted-foreground">
-            {values.landArea || 0} m² tanah · {values.buildingArea || 0} m² bangunan · {values.bedrooms || 0} KT ·{" "}
-            {values.bathrooms || 0} KM
+            {values.landArea || 0} m² tanah · {values.buildingArea || 0} m² bangunan ·{" "}
+            {values.bedrooms || 0} KT · {values.bathrooms || 0} KM
           </p>
-          <p className="mt-3 line-clamp-4 text-sm leading-6 text-muted-foreground">{values.description}</p>
+          <p className="mt-3 line-clamp-4 text-sm leading-6 text-muted-foreground">
+            {values.description}
+          </p>
           {values.facilities.length > 0 ? (
-            <p className="mt-3 text-xs text-muted-foreground">Fasilitas: {values.facilities.join(", ")}</p>
+            <p className="mt-3 text-xs text-muted-foreground">
+              Fasilitas: {values.facilities.join(", ")}
+            </p>
           ) : null}
         </div>
       </div>

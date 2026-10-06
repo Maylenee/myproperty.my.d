@@ -12,9 +12,15 @@ export const Route = createFileRoute("/admin/")({
   head: () => ({
     meta: [
       { title: "Dashboard Admin — MyProperty" },
-      { name: "description", content: "Ringkasan pengguna, listing, dan laporan marketplace MyProperty." },
+      {
+        name: "description",
+        content: "Ringkasan pengguna, listing, dan laporan marketplace MyProperty.",
+      },
       { property: "og:title", content: "Dashboard Admin — MyProperty" },
-      { property: "og:description", content: "Ringkasan pengguna, listing, dan laporan marketplace MyProperty." },
+      {
+        property: "og:description",
+        content: "Ringkasan pengguna, listing, dan laporan marketplace MyProperty.",
+      },
       { name: "robots", content: "noindex" },
     ],
   }),
@@ -49,10 +55,22 @@ function AdminDashboard() {
         }
       />
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-3">
-        <StatCard label="Total User" value={state.users.filter((u) => u.role === "buyer").length} icon={Users} />
-        <StatCard label="Total Seller" value={state.users.filter((u) => u.role === "seller").length} icon={Store} />
+        <StatCard
+          label="Total User"
+          value={state.users.filter((u) => u.role === "buyer").length}
+          icon={Users}
+        />
+        <StatCard
+          label="Total Seller"
+          value={state.users.filter((u) => u.role === "seller").length}
+          icon={Store}
+        />
         <StatCard label="Total Properti" value={state.properties.length} icon={Building2} />
-        <StatCard label="Listing Aktif" value={state.properties.filter((p) => p.status === "aktif").length} icon={CheckCircle2} />
+        <StatCard
+          label="Listing Aktif"
+          value={state.properties.filter((p) => p.status === "aktif").length}
+          icon={CheckCircle2}
+        />
         <StatCard label="Menunggu Review" value={pending.length} icon={Clock} />
         <StatCard label="Total Inquiry" value={state.inquiries.length} icon={MessageSquare} />
       </div>
@@ -60,14 +78,24 @@ function AdminDashboard() {
       <section>
         <div className="flex items-center justify-between">
           <h2 className="text-lg font-bold text-foreground">Menunggu review</h2>
-          <Link to="/admin/properties" className="text-sm font-semibold text-primary hover:underline">
+          <Link
+            to="/admin/properties"
+            className="text-sm font-semibold text-primary hover:underline"
+          >
             Kelola properti
           </Link>
         </div>
         <ul className="mt-4 divide-y divide-border border border-border bg-card">
-          {pending.length === 0 ? <li className="p-4 text-sm text-muted-foreground">Tidak ada listing yang menunggu review.</li> : null}
+          {pending.length === 0 ? (
+            <li className="p-4 text-sm text-muted-foreground">
+              Tidak ada listing yang menunggu review.
+            </li>
+          ) : null}
           {pending.slice(0, 5).map((p) => (
-            <li key={p.id} className="grid grid-cols-[64px_minmax(0,1fr)_auto] items-center gap-3 p-3">
+            <li
+              key={p.id}
+              className="grid grid-cols-[64px_minmax(0,1fr)_auto] items-center gap-3 p-3"
+            >
               <img src={p.photos[0]} alt="" className="h-12 w-16 object-cover" />
               <div className="min-w-0">
                 <p className="truncate text-sm font-semibold text-foreground">{p.name}</p>
@@ -89,12 +117,15 @@ function AdminDashboard() {
           </Link>
         </div>
         <ul className="mt-4 divide-y divide-border border border-border bg-card">
-          {state.reports.length === 0 ? <li className="p-4 text-sm text-muted-foreground">Belum ada laporan.</li> : null}
+          {state.reports.length === 0 ? (
+            <li className="p-4 text-sm text-muted-foreground">Belum ada laporan.</li>
+          ) : null}
           {state.reports.slice(0, 5).map((r) => (
             <li key={r.id} className="p-3 text-sm">
               <p className="font-semibold text-foreground">{r.reason}</p>
               <p className="text-xs text-muted-foreground">
-                {state.properties.find((p) => p.id === r.propertyId)?.name ?? "Properti dihapus"} · {r.reporter} · {timeAgo(r.createdAt)}
+                {state.properties.find((p) => p.id === r.propertyId)?.name ?? "Properti dihapus"} ·{" "}
+                {r.reporter} · {timeAgo(r.createdAt)}
               </p>
             </li>
           ))}

@@ -17,7 +17,10 @@ export const Route = createFileRoute("/seller/profile")({
       { title: "Profil Penjual — MyProperty" },
       { name: "description", content: "Kelola profil publik Anda sebagai penjual di MyProperty." },
       { property: "og:title", content: "Profil Penjual — MyProperty" },
-      { property: "og:description", content: "Kelola profil publik Anda sebagai penjual di MyProperty." },
+      {
+        property: "og:description",
+        content: "Kelola profil publik Anda sebagai penjual di MyProperty.",
+      },
     ],
   }),
   component: () => (
@@ -61,8 +64,8 @@ function SellerProfileForm() {
           </p>
         ) : (
           <p className="text-muted-foreground">
-            Akun Anda belum terverifikasi. Admin akan meninjau profil dan listing Anda sebelum memberikan badge
-            Terverifikasi.
+            Akun Anda belum terverifikasi. Admin akan meninjau profil dan listing Anda sebelum
+            memberikan badge Terverifikasi.
           </p>
         )}
       </div>
@@ -74,7 +77,8 @@ function SellerProfileForm() {
           e.preventDefault();
           const next: Record<string, string> = {};
           if (form.name.trim().length < 3) next.name = "Nama minimal 3 karakter.";
-          if (!/^0\d{8,13}$/.test(form.phone.trim())) next.phone = "Nomor HP diawali 0 dan 9–14 digit.";
+          if (!/^0\d{8,13}$/.test(form.phone.trim()))
+            next.phone = "Nomor HP diawali 0 dan 9–14 digit.";
           setErrors(next);
           if (Object.keys(next).length > 0) return;
           updateProfile({ name: form.name.trim(), phone: form.phone.trim(), bio: form.bio.trim() });
@@ -83,17 +87,40 @@ function SellerProfileForm() {
       >
         <div>
           <Label htmlFor="name">Nama / nama agensi</Label>
-          <Input id="name" value={form.name} onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))} className="mt-1.5" aria-invalid={!!errors.name} />
-          {errors.name ? <p className="mt-1 text-xs font-semibold text-destructive">{errors.name}</p> : null}
+          <Input
+            id="name"
+            value={form.name}
+            onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
+            className="mt-1.5"
+            aria-invalid={!!errors.name}
+          />
+          {errors.name ? (
+            <p className="mt-1 text-xs font-semibold text-destructive">{errors.name}</p>
+          ) : null}
         </div>
         <div>
           <Label htmlFor="phone">Nomor HP / WhatsApp</Label>
-          <Input id="phone" value={form.phone} onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value }))} className="mt-1.5" aria-invalid={!!errors.phone} />
-          {errors.phone ? <p className="mt-1 text-xs font-semibold text-destructive">{errors.phone}</p> : null}
+          <Input
+            id="phone"
+            value={form.phone}
+            onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value }))}
+            className="mt-1.5"
+            aria-invalid={!!errors.phone}
+          />
+          {errors.phone ? (
+            <p className="mt-1 text-xs font-semibold text-destructive">{errors.phone}</p>
+          ) : null}
         </div>
         <div>
           <Label htmlFor="bio">Tentang Anda</Label>
-          <Textarea id="bio" rows={4} value={form.bio} onChange={(e) => setForm((f) => ({ ...f, bio: e.target.value }))} className="mt-1.5" placeholder="Contoh: Agen properti di Indramayu sejak 2015." />
+          <Textarea
+            id="bio"
+            rows={4}
+            value={form.bio}
+            onChange={(e) => setForm((f) => ({ ...f, bio: e.target.value }))}
+            className="mt-1.5"
+            placeholder="Contoh: Agen properti di Indramayu sejak 2015."
+          />
         </div>
         <Button type="submit">Simpan Profil</Button>
       </form>

@@ -3,7 +3,11 @@ import { Building2 } from "lucide-react";
 import { toast } from "sonner";
 
 import { EmptyState, PageHeader } from "@/components/app/common";
-import { PropertyForm, valuesFromProperty, type PropertyFormValues } from "@/components/app/property-form";
+import {
+  PropertyForm,
+  valuesFromProperty,
+  type PropertyFormValues,
+} from "@/components/app/property-form";
 import { RoleGuard, SellerShell } from "@/components/app/shell";
 import { useStore } from "@/lib/store";
 
@@ -81,7 +85,9 @@ function EditProperty() {
         initial={valuesFromProperty(property)}
         submitLabel="Simpan Perubahan"
         onSubmit={(values) => {
-          const keep = ["aktif", "terjual", "disewa", "nonaktif", "pending"].includes(property.status);
+          const keep = ["aktif", "terjual", "disewa", "nonaktif", "pending"].includes(
+            property.status,
+          );
           updateProperty(property.id, {
             ...toPatch(values),
             status: keep ? property.status : "pending",

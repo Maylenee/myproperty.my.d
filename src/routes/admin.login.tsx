@@ -56,11 +56,23 @@ function AdminLogin() {
       >
         <div>
           <Label htmlFor="email">Email</Label>
-          <Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="mt-1.5" />
+          <Input
+            id="email"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="mt-1.5"
+          />
         </div>
         <div>
           <Label htmlFor="password">Kata sandi</Label>
-          <Input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="mt-1.5" />
+          <Input
+            id="password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="mt-1.5"
+          />
           <FieldError message={error} />
         </div>
         <Button type="submit" className="w-full" disabled={loading}>

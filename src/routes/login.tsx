@@ -13,9 +13,15 @@ export const Route = createFileRoute("/login")({
   head: () => ({
     meta: [
       { title: "Masuk — MyProperty" },
-      { name: "description", content: "Masuk ke akun MyProperty untuk menyimpan properti dan mengelola listing." },
+      {
+        name: "description",
+        content: "Masuk ke akun MyProperty untuk menyimpan properti dan mengelola listing.",
+      },
       { property: "og:title", content: "Masuk — MyProperty" },
-      { property: "og:description", content: "Masuk ke akun MyProperty untuk menyimpan properti dan mengelola listing." },
+      {
+        property: "og:description",
+        content: "Masuk ke akun MyProperty untuk menyimpan properti dan mengelola listing.",
+      },
     ],
   }),
   component: LoginPage,
@@ -62,7 +68,10 @@ function LoginPage() {
       footer={
         <>
           Belum punya akun?{" "}
-          <Link to="/register" className="font-semibold text-primary underline-offset-4 hover:underline">
+          <Link
+            to="/register"
+            className="font-semibold text-primary underline-offset-4 hover:underline"
+          >
             Daftar sekarang
           </Link>
         </>
@@ -70,7 +79,10 @@ function LoginPage() {
     >
       <form onSubmit={onSubmit} noValidate className="space-y-4">
         {formError ? (
-          <p role="alert" className="border border-destructive/40 bg-destructive/5 p-3 text-sm font-semibold text-destructive">
+          <p
+            role="alert"
+            className="border border-destructive/40 bg-destructive/5 p-3 text-sm font-semibold text-destructive"
+          >
             {formError}
           </p>
         ) : null}
@@ -91,7 +103,10 @@ function LoginPage() {
         <div>
           <div className="flex items-center justify-between">
             <Label htmlFor="password">Kata sandi</Label>
-            <Link to="/forgot-password" className="text-xs font-semibold text-primary hover:underline">
+            <Link
+              to="/forgot-password"
+              className="text-xs font-semibold text-primary hover:underline"
+            >
               Lupa kata sandi?
             </Link>
           </div>

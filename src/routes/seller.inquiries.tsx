@@ -5,7 +5,13 @@ import { useState } from "react";
 import { EmptyState, PageHeader } from "@/components/app/common";
 import { RoleGuard, SellerShell } from "@/components/app/shell";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { formatDate, timeAgo } from "@/lib/format";
 import { useStore } from "@/lib/store";
 import type { Inquiry } from "@/lib/types";
@@ -14,9 +20,15 @@ export const Route = createFileRoute("/seller/inquiries")({
   head: () => ({
     meta: [
       { title: "Inquiry Masuk — MyProperty" },
-      { name: "description", content: "Daftar pesan dari calon pembeli dan penyewa properti Anda." },
+      {
+        name: "description",
+        content: "Daftar pesan dari calon pembeli dan penyewa properti Anda.",
+      },
       { property: "og:title", content: "Inquiry Masuk — MyProperty" },
-      { property: "og:description", content: "Daftar pesan dari calon pembeli dan penyewa properti Anda." },
+      {
+        property: "og:description",
+        content: "Daftar pesan dari calon pembeli dan penyewa properti Anda.",
+      },
     ],
   }),
   component: () => (
@@ -42,10 +54,17 @@ function Inquiries() {
 
   return (
     <div className="space-y-6">
-      <PageHeader title="Inquiry Masuk" description="Pesan dari calon pembeli. Balas cepat agar peluang transaksi lebih besar." />
+      <PageHeader
+        title="Inquiry Masuk"
+        description="Pesan dari calon pembeli. Balas cepat agar peluang transaksi lebih besar."
+      />
 
       {list.length === 0 ? (
-        <EmptyState icon={MessageSquare} title="Belum ada inquiry" description="Inquiry dari calon pembeli akan muncul di sini." />
+        <EmptyState
+          icon={MessageSquare}
+          title="Belum ada inquiry"
+          description="Inquiry dari calon pembeli akan muncul di sini."
+        />
       ) : (
         <ul className="divide-y divide-border border border-border bg-card">
           {list.map((inq) => {
@@ -62,7 +81,9 @@ function Inquiries() {
                       {inq.buyerName}
                       <span
                         className={`ml-2 px-1.5 py-0.5 text-[10px] font-bold uppercase ${
-                          inq.status === "baru" ? "bg-accent text-accent-foreground" : "bg-muted text-muted-foreground"
+                          inq.status === "baru"
+                            ? "bg-accent text-accent-foreground"
+                            : "bg-muted text-muted-foreground"
                         }`}
                       >
                         {inq.status === "baru" ? "Baru" : "Dibaca"}
@@ -92,7 +113,11 @@ function Inquiries() {
               <div>
                 <p className="text-xs font-bold uppercase text-muted-foreground">Properti</p>
                 {property ? (
-                  <Link to="/properties/$id" params={{ id: property.id }} className="font-semibold text-primary hover:underline">
+                  <Link
+                    to="/properties/$id"
+                    params={{ id: property.id }}
+                    className="font-semibold text-primary hover:underline"
+                  >
                     {property.name}
                   </Link>
                 ) : (

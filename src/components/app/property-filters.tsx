@@ -232,7 +232,9 @@ export function FilterSidebar(props: Props) {
   return (
     <aside className="hidden w-64 shrink-0 lg:block">
       <div className="sticky top-24 border border-border bg-card p-5">
-        <h2 className="mb-4 text-sm font-extrabold uppercase tracking-wide text-foreground">Filter</h2>
+        <h2 className="mb-4 text-sm font-extrabold uppercase tracking-wide text-foreground">
+          Filter
+        </h2>
         <FilterFields {...props} />
       </div>
     </aside>
@@ -261,11 +263,7 @@ export function FilterDrawer(props: Props) {
   );
 }
 
-export function FilterChips({
-  filters,
-  onChange,
-  onReset,
-}: Props) {
+export function FilterChips({ filters, onChange, onReset }: Props) {
   const { state } = useStore();
   const typeName = (slug: string) => state.categories.find((c) => c.slug === slug)?.name ?? slug;
   const chips = activeFilterChips(filters, typeName);
@@ -296,7 +294,13 @@ export function FilterChips({
   );
 }
 
-export function SortSelect({ value, onChange }: { value: SortKey; onChange: (v: SortKey) => void }) {
+export function SortSelect({
+  value,
+  onChange,
+}: {
+  value: SortKey;
+  onChange: (v: SortKey) => void;
+}) {
   return (
     <label className="inline-flex items-center gap-2 text-sm text-muted-foreground">
       <span className="hidden sm:inline">Urutkan</span>

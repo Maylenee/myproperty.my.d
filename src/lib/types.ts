@@ -3,13 +3,7 @@ export type Role = "buyer" | "seller" | "admin";
 export type TransactionType = "dijual" | "disewa";
 
 export type PropertyStatus =
-  | "draft"
-  | "pending"
-  | "aktif"
-  | "ditolak"
-  | "terjual"
-  | "disewa"
-  | "nonaktif";
+  "draft" | "pending" | "aktif" | "ditolak" | "terjual" | "disewa" | "nonaktif";
 
 export interface Category {
   id: string;

@@ -97,16 +97,33 @@ export function activeFilterChips(filters: Filters, typeName: (slug: string) => 
       clear: { types: filters.types.filter((x) => x !== t) },
     }),
   );
-  if (filters.province) chips.push({ key: "province", label: filters.province, clear: { province: "", city: "", district: "" } });
-  if (filters.city) chips.push({ key: "city", label: filters.city, clear: { city: "", district: "" } });
-  if (filters.district) chips.push({ key: "district", label: filters.district, clear: { district: "" } });
-  if (filters.minPrice) chips.push({ key: "minPrice", label: `≥ Rp ${filters.minPrice}`, clear: { minPrice: "" } });
-  if (filters.maxPrice) chips.push({ key: "maxPrice", label: `≤ Rp ${filters.maxPrice}`, clear: { maxPrice: "" } });
-  if (filters.bedrooms) chips.push({ key: "bedrooms", label: `${filters.bedrooms}+ KT`, clear: { bedrooms: "" } });
-  if (filters.bathrooms) chips.push({ key: "bathrooms", label: `${filters.bathrooms}+ KM`, clear: { bathrooms: "" } });
-  if (filters.minLand) chips.push({ key: "minLand", label: `Tanah ≥ ${filters.minLand} m²`, clear: { minLand: "" } });
+  if (filters.province)
+    chips.push({
+      key: "province",
+      label: filters.province,
+      clear: { province: "", city: "", district: "" },
+    });
+  if (filters.city)
+    chips.push({ key: "city", label: filters.city, clear: { city: "", district: "" } });
+  if (filters.district)
+    chips.push({ key: "district", label: filters.district, clear: { district: "" } });
+  if (filters.minPrice)
+    chips.push({ key: "minPrice", label: `≥ Rp ${filters.minPrice}`, clear: { minPrice: "" } });
+  if (filters.maxPrice)
+    chips.push({ key: "maxPrice", label: `≤ Rp ${filters.maxPrice}`, clear: { maxPrice: "" } });
+  if (filters.bedrooms)
+    chips.push({ key: "bedrooms", label: `${filters.bedrooms}+ KT`, clear: { bedrooms: "" } });
+  if (filters.bathrooms)
+    chips.push({ key: "bathrooms", label: `${filters.bathrooms}+ KM`, clear: { bathrooms: "" } });
+  if (filters.minLand)
+    chips.push({ key: "minLand", label: `Tanah ≥ ${filters.minLand} m²`, clear: { minLand: "" } });
   if (filters.minBuilding)
-    chips.push({ key: "minBuilding", label: `Bangunan ≥ ${filters.minBuilding} m²`, clear: { minBuilding: "" } });
-  if (filters.floors) chips.push({ key: "floors", label: `${filters.floors}+ lantai`, clear: { floors: "" } });
+    chips.push({
+      key: "minBuilding",
+      label: `Bangunan ≥ ${filters.minBuilding} m²`,
+      clear: { minBuilding: "" },
+    });
+  if (filters.floors)
+    chips.push({ key: "floors", label: `${filters.floors}+ lantai`, clear: { floors: "" } });
   return chips;
 }

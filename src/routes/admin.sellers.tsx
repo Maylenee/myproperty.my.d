@@ -38,16 +38,31 @@ function AdminSellers() {
 
   return (
     <div className="space-y-6">
-      <PageHeader title="Kelola Seller" description="Beri badge Terverifikasi untuk penjual yang datanya sudah diperiksa." />
+      <PageHeader
+        title="Kelola Seller"
+        description="Beri badge Terverifikasi untuk penjual yang datanya sudah diperiksa."
+      />
       <div className="relative sm:w-72">
-        <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" aria-hidden />
-        <Input aria-label="Cari seller" placeholder="Cari nama atau email" value={q} onChange={(e) => setQ(e.target.value)} className="pl-9" />
+        <Search
+          className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
+          aria-hidden
+        />
+        <Input
+          aria-label="Cari seller"
+          placeholder="Cari nama atau email"
+          value={q}
+          onChange={(e) => setQ(e.target.value)}
+          className="pl-9"
+        />
       </div>
       <ul className="divide-y divide-border border border-border bg-card">
         {sellers.map((s) => {
           const count = state.properties.filter((p) => p.sellerId === s.id).length;
           return (
-            <li key={s.id} className="grid gap-3 p-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center">
+            <li
+              key={s.id}
+              className="grid gap-3 p-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center"
+            >
               <div className="min-w-0">
                 <p className="font-semibold text-foreground">
                   {s.name}{" "}
@@ -56,7 +71,9 @@ function AdminSellers() {
                       <BadgeCheck className="size-3.5" aria-hidden /> Terverifikasi
                     </span>
                   ) : (
-                    <span className="ml-1 text-xs font-semibold text-muted-foreground">Belum terverifikasi</span>
+                    <span className="ml-1 text-xs font-semibold text-muted-foreground">
+                      Belum terverifikasi
+                    </span>
                   )}
                 </p>
                 <p className="text-sm text-muted-foreground">
@@ -74,7 +91,9 @@ function AdminSellers() {
                   variant={s.verified ? "outline" : "default"}
                   onClick={() => {
                     verifySeller(s.id, !s.verified);
-                    toast.success(s.verified ? "Verifikasi dicabut." : `${s.name} kini terverifikasi.`);
+                    toast.success(
+                      s.verified ? "Verifikasi dicabut." : `${s.name} kini terverifikasi.`,
+                    );
                   }}
                 >
                   {s.verified ? "Cabut Verifikasi" : "Verifikasi"}
@@ -83,7 +102,9 @@ function AdminSellers() {
             </li>
           );
         })}
-        {sellers.length === 0 ? <li className="p-4 text-sm text-muted-foreground">Seller tidak ditemukan.</li> : null}
+        {sellers.length === 0 ? (
+          <li className="p-4 text-sm text-muted-foreground">Seller tidak ditemukan.</li>
+        ) : null}
       </ul>
     </div>
   );

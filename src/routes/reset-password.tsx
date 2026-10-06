@@ -69,17 +69,38 @@ function ResetPasswordPage() {
       <form onSubmit={onSubmit} noValidate className="space-y-4">
         <div>
           <Label htmlFor="email">Email</Label>
-          <Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="mt-1.5" aria-invalid={!!errors.email} />
+          <Input
+            id="email"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="mt-1.5"
+            aria-invalid={!!errors.email}
+          />
           <FieldError message={errors.email} />
         </div>
         <div>
           <Label htmlFor="password">Kata sandi baru</Label>
-          <Input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="mt-1.5" aria-invalid={!!errors.password} />
+          <Input
+            id="password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="mt-1.5"
+            aria-invalid={!!errors.password}
+          />
           <FieldError message={errors.password} />
         </div>
         <div>
           <Label htmlFor="confirm">Ulangi kata sandi baru</Label>
-          <Input id="confirm" type="password" value={confirm} onChange={(e) => setConfirm(e.target.value)} className="mt-1.5" aria-invalid={!!errors.confirm} />
+          <Input
+            id="confirm"
+            type="password"
+            value={confirm}
+            onChange={(e) => setConfirm(e.target.value)}
+            className="mt-1.5"
+            aria-invalid={!!errors.confirm}
+          />
           <FieldError message={errors.confirm} />
         </div>
         <Button type="submit" className="w-full" disabled={loading}>

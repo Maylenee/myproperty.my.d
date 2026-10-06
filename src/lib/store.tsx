@@ -21,8 +21,18 @@ interface StoreValue {
   state: AppState;
   hydrated: boolean;
   currentUser: User | null;
-  login: (email: string, password: string, role?: Role) => { ok: boolean; message?: string; user?: User };
-  register: (data: { name: string; email: string; password: string; phone: string; role: Role }) => {
+  login: (
+    email: string,
+    password: string,
+    role?: Role,
+  ) => { ok: boolean; message?: string; user?: User };
+  register: (data: {
+    name: string;
+    email: string;
+    password: string;
+    phone: string;
+    role: Role;
+  }) => {
     ok: boolean;
     message?: string;
     user?: User;
@@ -146,7 +156,9 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       saved = !exists;
       return {
         ...s,
-        favorites: exists ? s.favorites.filter((id) => id !== propertyId) : [propertyId, ...s.favorites],
+        favorites: exists
+          ? s.favorites.filter((id) => id !== propertyId)
+          : [propertyId, ...s.favorites],
       };
     });
     return saved;
@@ -160,7 +172,10 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   const viewProperty = useCallback<StoreValue["viewProperty"]>((propertyId) => {
     setState((s) => ({
       ...s,
-      recentlyViewed: [propertyId, ...s.recentlyViewed.filter((id) => id !== propertyId)].slice(0, 12),
+      recentlyViewed: [propertyId, ...s.recentlyViewed.filter((id) => id !== propertyId)].slice(
+        0,
+        12,
+      ),
       properties: s.properties.map((p) => (p.id === propertyId ? { ...p, views: p.views + 1 } : p)),
     }));
   }, []);
@@ -240,7 +255,10 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const resolveReport = useCallback<StoreValue["resolveReport"]>((id, status) => {
-    setState((s) => ({ ...s, reports: s.reports.map((r) => (r.id === id ? { ...r, status } : r)) }));
+    setState((s) => ({
+      ...s,
+      reports: s.reports.map((r) => (r.id === id ? { ...r, status } : r)),
+    }));
   }, []);
 
   const resetData = useCallback(() => {

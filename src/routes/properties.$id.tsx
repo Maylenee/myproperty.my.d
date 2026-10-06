@@ -17,10 +17,23 @@ import { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 
 import { EmptyState } from "@/components/app/common";
-import { FavoriteButton, PropertyCard, SpecLine, StatusBadge, TransactionBadge } from "@/components/app/property-card";
+import {
+  FavoriteButton,
+  PropertyCard,
+  SpecLine,
+  StatusBadge,
+  TransactionBadge,
+} from "@/components/app/property-card";
 import { AppShell } from "@/components/app/shell";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -31,9 +44,17 @@ export const Route = createFileRoute("/properties/$id")({
   head: () => ({
     meta: [
       { title: "Detail Properti — MyProperty" },
-      { name: "description", content: "Lihat foto, harga, spesifikasi, lokasi, dan kontak penjual properti di MyProperty." },
+      {
+        name: "description",
+        content:
+          "Lihat foto, harga, spesifikasi, lokasi, dan kontak penjual properti di MyProperty.",
+      },
       { property: "og:title", content: "Detail Properti — MyProperty" },
-      { property: "og:description", content: "Lihat foto, harga, spesifikasi, lokasi, dan kontak penjual properti di MyProperty." },
+      {
+        property: "og:description",
+        content:
+          "Lihat foto, harga, spesifikasi, lokasi, dan kontak penjual properti di MyProperty.",
+      },
     ],
   }),
   component: PropertyDetailPage,
@@ -55,7 +76,10 @@ function PropertyDetailPage() {
   const similar = useMemo(
     () =>
       state.properties
-        .filter((p) => isPublic(p) && p.id !== id && (p.type === property?.type || p.city === property?.city))
+        .filter(
+          (p) =>
+            isPublic(p) && p.id !== id && (p.type === property?.type || p.city === property?.city),
+        )
         .slice(0, 3),
     [state.properties, id, property?.type, property?.city],
   );
@@ -79,7 +103,9 @@ function PropertyDetailPage() {
   if (!property) {
     return (
       <AppShell>
-        <div className="mx-auto max-w-3xl px-4 py-24 text-center text-sm text-muted-foreground sm:px-6">Memuat…</div>
+        <div className="mx-auto max-w-3xl px-4 py-24 text-center text-sm text-muted-foreground sm:px-6">
+          Memuat…
+        </div>
       </AppShell>
     );
   }
@@ -116,7 +142,11 @@ function PropertyDetailPage() {
           {category ? (
             <>
               <span className="px-2">/</span>
-              <Link to="/category/$slug" params={{ slug: category.slug }} className="hover:text-primary">
+              <Link
+                to="/category/$slug"
+                params={{ slug: category.slug }}
+                className="hover:text-primary"
+              >
                 {category.name}
               </Link>
             </>
@@ -137,10 +167,12 @@ function PropertyDetailPage() {
                   </span>
                 ) : null}
               </div>
-              <h1 className="mt-3 font-display text-3xl leading-tight text-foreground sm:text-4xl">{property.name}</h1>
+              <h1 className="mt-3 font-display text-3xl leading-tight text-foreground sm:text-4xl">
+                {property.name}
+              </h1>
               <p className="mt-2 inline-flex items-center gap-1.5 text-sm text-muted-foreground">
-                <MapPin className="size-4" aria-hidden /> {property.address}, {property.district}, {property.city},{" "}
-                {property.province}
+                <MapPin className="size-4" aria-hidden /> {property.address}, {property.district},{" "}
+                {property.city}, {property.province}
               </p>
               <p className="mt-4 font-display text-3xl text-primary">
                 {formatPrice(property.price, property.transaction)}
@@ -155,7 +187,11 @@ function PropertyDetailPage() {
                 </Button>
                 <ReportDialog
                   onSubmit={(reason) => {
-                    addReport({ propertyId: property.id, reporter: currentUser?.name ?? "Pengunjung", reason });
+                    addReport({
+                      propertyId: property.id,
+                      reporter: currentUser?.name ?? "Pengunjung",
+                      reason,
+                    });
                     toast.success("Laporan terkirim. Tim kami akan meninjau properti ini.");
                   }}
                 />
@@ -166,9 +202,18 @@ function PropertyDetailPage() {
               <h2 className="text-lg font-bold text-foreground">Spesifikasi</h2>
               <dl className="mt-3 grid grid-cols-2 gap-px border border-border bg-border sm:grid-cols-3">
                 <Spec label="Luas tanah" value={`${property.landArea} m²`} />
-                <Spec label="Luas bangunan" value={property.buildingArea ? `${property.buildingArea} m²` : "—"} />
-                <Spec label="Kamar tidur" value={property.bedrooms ? `${property.bedrooms}` : "—"} />
-                <Spec label="Kamar mandi" value={property.bathrooms ? `${property.bathrooms}` : "—"} />
+                <Spec
+                  label="Luas bangunan"
+                  value={property.buildingArea ? `${property.buildingArea} m²` : "—"}
+                />
+                <Spec
+                  label="Kamar tidur"
+                  value={property.bedrooms ? `${property.bedrooms}` : "—"}
+                />
+                <Spec
+                  label="Kamar mandi"
+                  value={property.bathrooms ? `${property.bathrooms}` : "—"}
+                />
                 <Spec label="Jumlah lantai" value={`${property.floors}`} />
                 <Spec label="Sertifikat" value={property.certificate} />
               </dl>
@@ -176,7 +221,9 @@ function PropertyDetailPage() {
 
             <section>
               <h2 className="text-lg font-bold text-foreground">Deskripsi</h2>
-              <p className="mt-3 whitespace-pre-line text-sm leading-7 text-muted-foreground">{property.description}</p>
+              <p className="mt-3 whitespace-pre-line text-sm leading-7 text-muted-foreground">
+                {property.description}
+              </p>
             </section>
 
             {property.facilities.length > 0 ? (
@@ -184,7 +231,10 @@ function PropertyDetailPage() {
                 <h2 className="text-lg font-bold text-foreground">Fasilitas</h2>
                 <ul className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3">
                   {property.facilities.map((f) => (
-                    <li key={f} className="inline-flex items-center gap-2 text-sm text-muted-foreground">
+                    <li
+                      key={f}
+                      className="inline-flex items-center gap-2 text-sm text-muted-foreground"
+                    >
                       <CheckCircle2 className="size-4 shrink-0 text-primary" aria-hidden /> {f}
                     </li>
                   ))}
@@ -215,7 +265,9 @@ function PropertyDetailPage() {
 
           <aside className="space-y-4 lg:sticky lg:top-24 lg:self-start">
             <div className="border border-border bg-card p-5">
-              <p className="text-xs font-extrabold uppercase tracking-wide text-muted-foreground">Dipasang oleh</p>
+              <p className="text-xs font-extrabold uppercase tracking-wide text-muted-foreground">
+                Dipasang oleh
+              </p>
               <div className="mt-3 flex items-center gap-3">
                 <span className="grid size-11 shrink-0 place-items-center rounded-full bg-secondary text-sm font-bold text-secondary-foreground">
                   {seller?.name.charAt(0) ?? "?"}
@@ -289,7 +341,11 @@ function Gallery({ photos, name }: { photos: string[]; name: string }) {
   return (
     <div>
       <div className="relative aspect-[16/10] overflow-hidden bg-muted sm:aspect-[16/8]">
-        <img src={photos[index]} alt={`${name} — foto ${index + 1}`} className="size-full object-cover" />
+        <img
+          src={photos[index]}
+          alt={`${name} — foto ${index + 1}`}
+          className="size-full object-cover"
+        />
         <button
           type="button"
           onClick={() => setLightbox(true)}
@@ -341,7 +397,11 @@ function Gallery({ photos, name }: { photos: string[]; name: string }) {
           >
             <X className="size-5" />
           </button>
-          <img src={photos[index]} alt={`${name} — foto ${index + 1}`} className="max-h-[80vh] max-w-full object-contain" />
+          <img
+            src={photos[index]}
+            alt={`${name} — foto ${index + 1}`}
+            className="max-h-[80vh] max-w-full object-contain"
+          />
           {total > 1 ? (
             <>
               <GalleryArrow side="left" onClick={() => go(-1)} inverse />
@@ -378,7 +438,15 @@ function GalleryArrow({
   );
 }
 
-function MapPreview({ address, city, province }: { address: string; city: string; province: string }) {
+function MapPreview({
+  address,
+  city,
+  province,
+}: {
+  address: string;
+  city: string;
+  province: string;
+}) {
   return (
     <div className="mt-3 border border-border bg-card">
       <div
@@ -417,7 +485,9 @@ function InquiryForm({
   const { currentUser } = useStore();
   const [name, setName] = useState(currentUser?.name ?? "");
   const [phone, setPhone] = useState(currentUser?.phone ?? "");
-  const [message, setMessage] = useState(`Saya tertarik dengan properti "${propertyName}". Mohon informasinya.`);
+  const [message, setMessage] = useState(
+    `Saya tertarik dengan properti "${propertyName}". Mohon informasinya.`,
+  );
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
@@ -427,7 +497,9 @@ function InquiryForm({
       <div className="border border-border bg-card p-5 text-center">
         <CheckCircle2 className="mx-auto size-8 text-primary" aria-hidden />
         <p className="mt-3 font-bold text-foreground">Inquiry berhasil dikirim.</p>
-        <p className="mt-1 text-sm text-muted-foreground">Penjual akan menghubungi Anda melalui nomor yang dikirim.</p>
+        <p className="mt-1 text-sm text-muted-foreground">
+          Penjual akan menghubungi Anda melalui nomor yang dikirim.
+        </p>
         <Button variant="outline" className="mt-4 w-full" onClick={() => setSent(false)}>
           Kirim Inquiry Lagi
         </Button>
@@ -457,22 +529,50 @@ function InquiryForm({
       }}
     >
       <h2 className="text-base font-bold text-foreground">Tertarik dengan properti ini?</h2>
-      <p className="mt-1 text-sm text-muted-foreground">Kirim pesan, penjual akan menghubungi Anda.</p>
+      <p className="mt-1 text-sm text-muted-foreground">
+        Kirim pesan, penjual akan menghubungi Anda.
+      </p>
       <div className="mt-4 space-y-3">
         <div>
           <Label htmlFor="inq-name">Nama</Label>
-          <Input id="inq-name" value={name} onChange={(e) => setName(e.target.value)} className="mt-1.5" aria-invalid={!!errors.name} />
-          {errors.name ? <p className="mt-1 text-xs font-semibold text-destructive">{errors.name}</p> : null}
+          <Input
+            id="inq-name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="mt-1.5"
+            aria-invalid={!!errors.name}
+          />
+          {errors.name ? (
+            <p className="mt-1 text-xs font-semibold text-destructive">{errors.name}</p>
+          ) : null}
         </div>
         <div>
           <Label htmlFor="inq-phone">Nomor HP</Label>
-          <Input id="inq-phone" inputMode="tel" value={phone} onChange={(e) => setPhone(e.target.value)} className="mt-1.5" aria-invalid={!!errors.phone} />
-          {errors.phone ? <p className="mt-1 text-xs font-semibold text-destructive">{errors.phone}</p> : null}
+          <Input
+            id="inq-phone"
+            inputMode="tel"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            className="mt-1.5"
+            aria-invalid={!!errors.phone}
+          />
+          {errors.phone ? (
+            <p className="mt-1 text-xs font-semibold text-destructive">{errors.phone}</p>
+          ) : null}
         </div>
         <div>
           <Label htmlFor="inq-message">Pesan</Label>
-          <Textarea id="inq-message" rows={4} value={message} onChange={(e) => setMessage(e.target.value)} className="mt-1.5" aria-invalid={!!errors.message} />
-          {errors.message ? <p className="mt-1 text-xs font-semibold text-destructive">{errors.message}</p> : null}
+          <Textarea
+            id="inq-message"
+            rows={4}
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            className="mt-1.5"
+            aria-invalid={!!errors.message}
+          />
+          {errors.message ? (
+            <p className="mt-1 text-xs font-semibold text-destructive">{errors.message}</p>
+          ) : null}
         </div>
         <Button type="submit" className="w-full" disabled={loading}>
           {loading ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
@@ -497,12 +597,25 @@ function ReportDialog({ onSubmit }: { onSubmit: (reason: string) => void }) {
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Laporkan properti ini</DialogTitle>
-          <DialogDescription>Pilih alasan laporan. Tim kami akan meninjau properti tersebut.</DialogDescription>
+          <DialogDescription>
+            Pilih alasan laporan. Tim kami akan meninjau properti tersebut.
+          </DialogDescription>
         </DialogHeader>
         <div className="space-y-2">
-          {["Informasi tidak sesuai", "Properti sudah tidak tersedia", "Foto tidak sesuai", "Dugaan penipuan"].map((r) => (
+          {[
+            "Informasi tidak sesuai",
+            "Properti sudah tidak tersedia",
+            "Foto tidak sesuai",
+            "Dugaan penipuan",
+          ].map((r) => (
             <label key={r} className="flex items-center gap-2 text-sm text-foreground">
-              <input type="radio" name="report-reason" value={r} checked={reason === r} onChange={() => setReason(r)} />
+              <input
+                type="radio"
+                name="report-reason"
+                value={r}
+                checked={reason === r}
+                onChange={() => setReason(r)}
+              />
               {r}
             </label>
           ))}

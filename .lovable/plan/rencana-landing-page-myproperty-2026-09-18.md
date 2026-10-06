@@ -1,11 +1,13 @@
 # Rencana Landing Page MyProperty
 
 ## Hasil yang Dibangun
+
 - Landing page marketplace properti lengkap di halaman utama dengan urutan bagian sesuai brief.
 - Arah visual clean dan premium: hijau tua, off-white, tipografi tegas, whitespace luas, sudut kartu yang terkontrol, dan foto properti sebagai fokus.
 - Navigasi responsif, pencarian properti yang dapat diisi, accordion FAQ, tombol aksi, serta mockup produk yang terasa nyata.
 
 ## Struktur Halaman
+
 1. Navbar dengan menu, Masuk, dan Pasang Properti.
 2. Hero dengan headline, dua CTA, dan pencarian empat field.
 3. Value strip tanpa statistik pengguna palsu.
@@ -21,6 +23,7 @@
 13. CTA akhir dan footer lengkap.
 
 ## Detail Teknis
+
 - Gunakan React, TanStack Router, Tailwind CSS v4, dan token desain semantik di stylesheet utama.
 - Gunakan aset foto properti lokal yang dibuat khusus agar tampilan tidak bergantung pada tautan luar.
 - Gunakan ikon vektor sederhana dari pustaka yang sudah tersedia bila ada; jika belum, tambahkan dependensi ringan.

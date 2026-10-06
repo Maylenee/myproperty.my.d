@@ -20,7 +20,10 @@ import { useState, type ReactNode } from "react";
 import { Logo } from "@/components/app/common";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { useStore } from "@/lib/store";
+import { useSupabaseStore as useStore } from "@/lib/supabase-store";
+import { SupabaseStoreProvider as StoreProvider } from "@/lib/supabase-store";
+import { ChatProvider } from "@/lib/chat-store";
+import { ChatBubble, ChatBubbleDesktop } from "@/components/app/chat-bubble";
 import type { Role } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
@@ -227,7 +230,8 @@ export function SiteFooter() {
         />
       </div>
       <div className="border-t border-border px-4 py-5 text-center text-xs text-muted-foreground sm:px-6">
-        © {new Date().getFullYear()} MyProperty. Seluruh data pada aplikasi ini adalah data simulasi.
+        © {new Date().getFullYear()} MyProperty. Seluruh data pada aplikasi ini adalah data
+        simulasi.
       </div>
     </footer>
   );
@@ -252,12 +256,16 @@ function FooterCol({ title, links }: { title: string; links: [string, string][] 
 
 export function AppShell({ children }: { children: ReactNode }) {
   return (
-    <div className="flex min-h-screen flex-col bg-background">
-      <SiteHeader />
-      <main className="flex-1 pb-20 lg:pb-0">{children}</main>
-      <SiteFooter />
-      <MobileTabBar />
-    </div>
+    <ChatProvider>
+      <div className="flex min-h-screen flex-col bg-background">
+        <SiteHeader />
+        <main className="flex-1 pb-20 lg:pb-0">{children}</main>
+        <SiteFooter />
+        <MobileTabBar />
+        <ChatBubble />
+        <ChatBubbleDesktop />
+      </div>
+    </ChatProvider>
   );
 }
 
@@ -297,70 +305,77 @@ function DashboardShell({
   };
 
   return (
-    <div className="flex min-h-screen flex-col bg-background">
-      <header className="sticky top-0 z-40 border-b border-border bg-background">
-        <div className="mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-4 py-3 sm:px-6">
-          <div className="flex min-w-0 items-center gap-3">
-            <Logo />
-            <span className="hidden truncate border-l border-border pl-3 text-sm font-semibold text-muted-foreground sm:inline">
-              {title}
-            </span>
+    <ChatProvider>
+      <div className="flex min-h-screen flex-col bg-background">
+        <header className="sticky top-0 z-40 border-b border-border bg-background">
+          <div className="mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-4 py-3 sm:px-6">
+            <div className="flex min-w-0 items-center gap-3">
+              <Logo />
+              <span className="hidden truncate border-l border-border pl-3 text-sm font-semibold text-muted-foreground sm:inline">
+                {title}
+              </span>
+            </div>
+            <div className="flex shrink-0 items-center gap-2">
+              <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex">
+                <Link to="/properties">Lihat Marketplace</Link>
+              </Button>
+              <span className="hidden text-sm text-muted-foreground md:inline">
+                {currentUser?.name}
+              </span>
+              <Button variant="outline" size="sm" onClick={onLogout}>
+                <LogOut className="size-4" aria-hidden />
+                <span className="hidden sm:inline">Keluar</span>
+              </Button>
+            </div>
           </div>
-          <div className="flex shrink-0 items-center gap-2">
-            <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex">
-              <Link to="/properties">Lihat Marketplace</Link>
-            </Button>
-            <span className="hidden text-sm text-muted-foreground md:inline">{currentUser?.name}</span>
-            <Button variant="outline" size="sm" onClick={onLogout}>
-              <LogOut className="size-4" aria-hidden />
-              <span className="hidden sm:inline">Keluar</span>
-            </Button>
-          </div>
-        </div>
-      </header>
+        </header>
 
-      <div className="mx-auto flex w-full max-w-7xl flex-1 gap-8 px-4 py-8 sm:px-6">
-        <aside className="hidden w-56 shrink-0 lg:block">
-          <nav aria-label={title} className="sticky top-24 flex flex-col gap-1">
-            {nav.map((item) => (
+        <div className="mx-auto flex w-full max-w-7xl flex-1 gap-8 px-4 py-8 sm:px-6">
+          <aside className="hidden w-56 shrink-0 lg:block">
+            <nav aria-label={title} className="sticky top-24 flex flex-col gap-1">
+              {nav.map((item) => (
+                <Link
+                  key={item.to}
+                  to={item.to}
+                  activeOptions={{ exact: item.to === "/admin" }}
+                  activeProps={{ className: "bg-secondary text-primary" }}
+                  className="inline-flex items-center gap-2.5 rounded-md px-3 py-2 text-sm font-semibold text-muted-foreground hover:bg-secondary hover:text-foreground"
+                >
+                  <item.icon className="size-4 shrink-0" aria-hidden />
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
+          </aside>
+          <main className="min-w-0 flex-1 pb-24 lg:pb-0">{children}</main>
+        </div>
+
+        <nav
+          aria-label={`${title} navigasi bawah`}
+          className="fixed inset-x-0 bottom-0 z-40 flex overflow-x-auto border-t border-border bg-background lg:hidden"
+        >
+          {nav.map((item) => {
+            const active =
+              item.to === "/admin" ? pathname === "/admin" : pathname.startsWith(item.to);
+            return (
               <Link
                 key={item.to}
                 to={item.to}
-                activeOptions={{ exact: item.to === "/admin" }}
-                activeProps={{ className: "bg-secondary text-primary" }}
-                className="inline-flex items-center gap-2.5 rounded-md px-3 py-2 text-sm font-semibold text-muted-foreground hover:bg-secondary hover:text-foreground"
+                className={cn(
+                  "flex min-w-[5rem] flex-1 flex-col items-center gap-1 py-2.5 text-[11px] font-semibold",
+                  active ? "text-primary" : "text-muted-foreground",
+                )}
               >
-                <item.icon className="size-4 shrink-0" aria-hidden />
+                <item.icon className="size-5" aria-hidden />
                 {item.label}
               </Link>
-            ))}
-          </nav>
-        </aside>
-        <main className="min-w-0 flex-1 pb-24 lg:pb-0">{children}</main>
+            );
+          })}
+        </nav>
+        <ChatBubble />
+        <ChatBubbleDesktop />
       </div>
-
-      <nav
-        aria-label={`${title} navigasi bawah`}
-        className="fixed inset-x-0 bottom-0 z-40 flex overflow-x-auto border-t border-border bg-background lg:hidden"
-      >
-        {nav.map((item) => {
-          const active = item.to === "/admin" ? pathname === "/admin" : pathname.startsWith(item.to);
-          return (
-            <Link
-              key={item.to}
-              to={item.to}
-              className={cn(
-                "flex min-w-[5rem] flex-1 flex-col items-center gap-1 py-2.5 text-[11px] font-semibold",
-                active ? "text-primary" : "text-muted-foreground",
-              )}
-            >
-              <item.icon className="size-5" aria-hidden />
-              {item.label}
-            </Link>
-          );
-        })}
-      </nav>
-    </div>
+    </ChatProvider>
   );
 }
 

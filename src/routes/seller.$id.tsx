@@ -12,9 +12,15 @@ export const Route = createFileRoute("/seller/$id")({
   head: () => ({
     meta: [
       { title: "Profil Penjual — MyProperty" },
-      { name: "description", content: "Lihat profil penjual dan seluruh properti yang sedang ditawarkan." },
+      {
+        name: "description",
+        content: "Lihat profil penjual dan seluruh properti yang sedang ditawarkan.",
+      },
       { property: "og:title", content: "Profil Penjual — MyProperty" },
-      { property: "og:description", content: "Lihat profil penjual dan seluruh properti yang sedang ditawarkan." },
+      {
+        property: "og:description",
+        content: "Lihat profil penjual dan seluruh properti yang sedang ditawarkan.",
+      },
     ],
   }),
   component: SellerProfilePage,
@@ -45,7 +51,9 @@ function SellerProfilePage() {
   if (!seller) {
     return (
       <AppShell>
-        <div className="mx-auto max-w-3xl px-4 py-24 text-center text-sm text-muted-foreground sm:px-6">Memuat…</div>
+        <div className="mx-auto max-w-3xl px-4 py-24 text-center text-sm text-muted-foreground sm:px-6">
+          Memuat…
+        </div>
       </AppShell>
     );
   }
@@ -67,9 +75,13 @@ function SellerProfilePage() {
                   <BadgeCheck className="size-4" aria-hidden /> Terverifikasi
                 </span>
               ) : (
-                <span className="mt-1 inline-block text-sm text-muted-foreground">Belum terverifikasi</span>
+                <span className="mt-1 inline-block text-sm text-muted-foreground">
+                  Belum terverifikasi
+                </span>
               )}
-              {seller.bio ? <p className="mt-3 text-sm leading-6 text-muted-foreground">{seller.bio}</p> : null}
+              {seller.bio ? (
+                <p className="mt-3 text-sm leading-6 text-muted-foreground">{seller.bio}</p>
+              ) : null}
               <p className="mt-3 text-xs text-muted-foreground">
                 Bergabung {formatDate(seller.createdAt)} · {listings.length} properti aktif
               </p>

@@ -14,9 +14,15 @@ export const Route = createFileRoute("/register")({
   head: () => ({
     meta: [
       { title: "Daftar Akun — MyProperty" },
-      { name: "description", content: "Buat akun pembeli atau penjual di MyProperty secara gratis." },
+      {
+        name: "description",
+        content: "Buat akun pembeli atau penjual di MyProperty secara gratis.",
+      },
       { property: "og:title", content: "Daftar Akun — MyProperty" },
-      { property: "og:description", content: "Buat akun pembeli atau penjual di MyProperty secara gratis." },
+      {
+        property: "og:description",
+        content: "Buat akun pembeli atau penjual di MyProperty secara gratis.",
+      },
     ],
   }),
   component: RegisterPage,
@@ -72,7 +78,10 @@ function RegisterPage() {
       footer={
         <>
           Sudah punya akun?{" "}
-          <Link to="/login" className="font-semibold text-primary underline-offset-4 hover:underline">
+          <Link
+            to="/login"
+            className="font-semibold text-primary underline-offset-4 hover:underline"
+          >
             Masuk di sini
           </Link>
         </>
@@ -80,7 +89,10 @@ function RegisterPage() {
     >
       <form onSubmit={onSubmit} noValidate className="space-y-4">
         {formError ? (
-          <p role="alert" className="border border-destructive/40 bg-destructive/5 p-3 text-sm font-semibold text-destructive">
+          <p
+            role="alert"
+            className="border border-destructive/40 bg-destructive/5 p-3 text-sm font-semibold text-destructive"
+          >
             {formError}
           </p>
         ) : null}
@@ -113,27 +125,62 @@ function RegisterPage() {
 
         <div>
           <Label htmlFor="name">Nama lengkap</Label>
-          <Input id="name" value={form.name} onChange={set("name")} className="mt-1.5" aria-invalid={!!errors.name} />
+          <Input
+            id="name"
+            value={form.name}
+            onChange={set("name")}
+            className="mt-1.5"
+            aria-invalid={!!errors.name}
+          />
           <FieldError message={errors.name} />
         </div>
         <div>
           <Label htmlFor="email">Email</Label>
-          <Input id="email" type="email" value={form.email} onChange={set("email")} className="mt-1.5" aria-invalid={!!errors.email} />
+          <Input
+            id="email"
+            type="email"
+            value={form.email}
+            onChange={set("email")}
+            className="mt-1.5"
+            aria-invalid={!!errors.email}
+          />
           <FieldError message={errors.email} />
         </div>
         <div>
           <Label htmlFor="phone">Nomor HP</Label>
-          <Input id="phone" inputMode="tel" placeholder="08xxxxxxxxxx" value={form.phone} onChange={set("phone")} className="mt-1.5" aria-invalid={!!errors.phone} />
+          <Input
+            id="phone"
+            inputMode="tel"
+            placeholder="08xxxxxxxxxx"
+            value={form.phone}
+            onChange={set("phone")}
+            className="mt-1.5"
+            aria-invalid={!!errors.phone}
+          />
           <FieldError message={errors.phone} />
         </div>
         <div>
           <Label htmlFor="password">Kata sandi</Label>
-          <Input id="password" type="password" value={form.password} onChange={set("password")} className="mt-1.5" aria-invalid={!!errors.password} />
+          <Input
+            id="password"
+            type="password"
+            value={form.password}
+            onChange={set("password")}
+            className="mt-1.5"
+            aria-invalid={!!errors.password}
+          />
           <FieldError message={errors.password} />
         </div>
         <div>
           <Label htmlFor="confirm">Ulangi kata sandi</Label>
-          <Input id="confirm" type="password" value={form.confirm} onChange={set("confirm")} className="mt-1.5" aria-invalid={!!errors.confirm} />
+          <Input
+            id="confirm"
+            type="password"
+            value={form.confirm}
+            onChange={set("confirm")}
+            className="mt-1.5"
+            aria-invalid={!!errors.confirm}
+          />
           <FieldError message={errors.confirm} />
         </div>
 

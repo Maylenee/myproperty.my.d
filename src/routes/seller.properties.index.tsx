@@ -91,20 +91,34 @@ function MyProperties() {
           </Link>
         </DropdownMenuItem>
         {p.status === "draft" || p.status === "ditolak" ? (
-          <DropdownMenuItem onClick={() => setStatus(p, "pending", "Listing dikirim untuk direview admin.")}>
+          <DropdownMenuItem
+            onClick={() => setStatus(p, "pending", "Listing dikirim untuk direview admin.")}
+          >
             Kirim untuk Review
           </DropdownMenuItem>
         ) : null}
         {p.status === "aktif" ? (
           <>
-            <DropdownMenuItem onClick={() => setStatus(p, p.transaction === "dijual" ? "terjual" : "disewa", "Status listing diperbarui.")}>
+            <DropdownMenuItem
+              onClick={() =>
+                setStatus(
+                  p,
+                  p.transaction === "dijual" ? "terjual" : "disewa",
+                  "Status listing diperbarui.",
+                )
+              }
+            >
               Tandai {p.transaction === "dijual" ? "Terjual" : "Disewa"}
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => setStatus(p, "nonaktif", "Listing dinonaktifkan.")}>Nonaktifkan</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => setStatus(p, "nonaktif", "Listing dinonaktifkan.")}>
+              Nonaktifkan
+            </DropdownMenuItem>
           </>
         ) : null}
         {p.status === "nonaktif" || p.status === "terjual" || p.status === "disewa" ? (
-          <DropdownMenuItem onClick={() => setStatus(p, "aktif", "Listing diaktifkan kembali.")}>Aktifkan Kembali</DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setStatus(p, "aktif", "Listing diaktifkan kembali.")}>
+            Aktifkan Kembali
+          </DropdownMenuItem>
         ) : null}
         <DropdownMenuSeparator />
         <DropdownMenuItem className="text-destructive" onClick={() => setToDelete(p)}>
@@ -122,7 +136,8 @@ function MyProperties() {
         action={
           <Button asChild>
             <Link to="/seller/properties/create">
-              <PlusCircle className="size-4" aria-hidden /> <span className="hidden sm:inline">Tambah Properti</span>
+              <PlusCircle className="size-4" aria-hidden />{" "}
+              <span className="hidden sm:inline">Tambah Properti</span>
             </Link>
           </Button>
         }
@@ -130,7 +145,8 @@ function MyProperties() {
 
       <div className="flex gap-2 overflow-x-auto pb-1" role="tablist">
         {tabs.map((t) => {
-          const count = t.key === "semua" ? mine.length : mine.filter((p) => p.status === t.key).length;
+          const count =
+            t.key === "semua" ? mine.length : mine.filter((p) => p.status === t.key).length;
           return (
             <button
               key={t.key}
@@ -138,7 +154,9 @@ function MyProperties() {
               aria-selected={tab === t.key}
               onClick={() => setTab(t.key)}
               className={`shrink-0 border px-3 py-1.5 text-sm font-semibold ${
-                tab === t.key ? "border-primary bg-primary text-primary-foreground" : "border-border bg-card text-muted-foreground hover:border-primary"
+                tab === t.key
+                  ? "border-primary bg-primary text-primary-foreground"
+                  : "border-border bg-card text-muted-foreground hover:border-primary"
               }`}
             >
               {t.label} ({count})
@@ -181,17 +199,23 @@ function MyProperties() {
                             {p.district}, {p.city}
                           </p>
                           {p.status === "ditolak" && p.rejectReason ? (
-                            <p className="mt-1 text-xs text-destructive">Alasan: {p.rejectReason}</p>
+                            <p className="mt-1 text-xs text-destructive">
+                              Alasan: {p.rejectReason}
+                            </p>
                           ) : null}
                         </div>
                       </div>
                     </td>
-                    <td className="p-3 font-semibold text-primary">{formatPrice(p.price, p.transaction)}</td>
+                    <td className="p-3 font-semibold text-primary">
+                      {formatPrice(p.price, p.transaction)}
+                    </td>
                     <td className="p-3">
                       <StatusBadge status={p.status} />
                     </td>
                     <td className="p-3">{formatNumber(p.views)}</td>
-                    <td className="p-3">{state.inquiries.filter((i) => i.propertyId === p.id).length}</td>
+                    <td className="p-3">
+                      {state.inquiries.filter((i) => i.propertyId === p.id).length}
+                    </td>
                     <td className="p-3 text-right">{actions(p)}</td>
                   </tr>
                 ))}
@@ -214,7 +238,8 @@ function MyProperties() {
                   {actions(p)}
                 </div>
                 <p className="mt-2 text-xs text-muted-foreground">
-                  {formatNumber(p.views)} dilihat · {state.inquiries.filter((i) => i.propertyId === p.id).length} inquiry
+                  {formatNumber(p.views)} dilihat ·{" "}
+                  {state.inquiries.filter((i) => i.propertyId === p.id).length} inquiry
                 </p>
                 {p.status === "ditolak" && p.rejectReason ? (
                   <p className="mt-1 text-xs text-destructive">Alasan ditolak: {p.rejectReason}</p>
@@ -230,7 +255,8 @@ function MyProperties() {
           <AlertDialogHeader>
             <AlertDialogTitle>Hapus listing ini?</AlertDialogTitle>
             <AlertDialogDescription>
-              "{toDelete?.name}" akan dihapus permanen beserta inquiry terkait. Tindakan ini tidak bisa dibatalkan.
+              "{toDelete?.name}" akan dihapus permanen beserta inquiry terkait. Tindakan ini tidak
+              bisa dibatalkan.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>

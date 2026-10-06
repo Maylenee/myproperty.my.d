@@ -3,10 +3,21 @@ import { SearchX } from "lucide-react";
 import { useMemo, useState } from "react";
 
 import { CardGridSkeleton, EmptyState, PageHeader } from "@/components/app/common";
-import { FilterChips, FilterDrawer, FilterSidebar, SortSelect } from "@/components/app/property-filters";
+import {
+  FilterChips,
+  FilterDrawer,
+  FilterSidebar,
+  SortSelect,
+} from "@/components/app/property-filters";
 import { PropertyGrid } from "@/components/app/property-card";
 import { AppShell } from "@/components/app/shell";
-import { applyFilters, defaultFilters, sortProperties, type Filters, type SortKey } from "@/lib/search";
+import {
+  applyFilters,
+  defaultFilters,
+  sortProperties,
+  type Filters,
+  type SortKey,
+} from "@/lib/search";
 import { isPublic, useStore } from "@/lib/store";
 
 export const Route = createFileRoute("/category/$slug")({
@@ -15,7 +26,10 @@ export const Route = createFileRoute("/category/$slug")({
     return {
       meta: [
         { title: `${name} Dijual & Disewa — MyProperty` },
-        { name: "description", content: `Daftar properti kategori ${name} di MyProperty, lengkap dengan harga dan spesifikasi.` },
+        {
+          name: "description",
+          content: `Daftar properti kategori ${name} di MyProperty, lengkap dengan harga dan spesifikasi.`,
+        },
         { property: "og:title", content: `${name} Dijual & Disewa — MyProperty` },
         { property: "og:description", content: `Daftar properti kategori ${name} di MyProperty.` },
       ],
@@ -64,7 +78,8 @@ function CategoryPage() {
           <section className="min-w-0 flex-1">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <p className="text-sm text-muted-foreground">
-                <span className="font-bold text-foreground">{results.length}</span> properti ditemukan
+                <span className="font-bold text-foreground">{results.length}</span> properti
+                ditemukan
               </p>
               <div className="flex items-center gap-2">
                 <FilterDrawer filters={filters} onChange={change} onReset={reset} />

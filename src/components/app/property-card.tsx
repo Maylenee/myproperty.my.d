@@ -101,12 +101,18 @@ export function SpecLine({ property, className }: { property: Property; classNam
   const items: { icon: typeof BedDouble; text: string }[] = [];
   if (property.bedrooms > 0) items.push({ icon: BedDouble, text: `${property.bedrooms} KT` });
   if (property.bathrooms > 0) items.push({ icon: Bath, text: `${property.bathrooms} KM` });
-  if (property.buildingArea > 0) items.push({ icon: Ruler, text: `${property.buildingArea} m² bangunan` });
+  if (property.buildingArea > 0)
+    items.push({ icon: Ruler, text: `${property.buildingArea} m² bangunan` });
   if (property.landArea > 0) items.push({ icon: LandPlot, text: `${property.landArea} m² tanah` });
   if (property.floors > 1) items.push({ icon: Layers3, text: `${property.floors} lantai` });
 
   return (
-    <ul className={cn("flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted-foreground", className)}>
+    <ul
+      className={cn(
+        "flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted-foreground",
+        className,
+      )}
+    >
       {items.slice(0, 4).map((item) => (
         <li key={item.text} className="inline-flex items-center gap-1.5">
           <item.icon className="size-4 shrink-0" aria-hidden />
@@ -117,7 +123,13 @@ export function SpecLine({ property, className }: { property: Property; classNam
   );
 }
 
-export function PropertyCard({ property, showFavorite = true }: { property: Property; showFavorite?: boolean }) {
+export function PropertyCard({
+  property,
+  showFavorite = true,
+}: {
+  property: Property;
+  showFavorite?: boolean;
+}) {
   return (
     <article className="group relative flex h-full flex-col border border-border bg-card transition-colors hover:border-primary">
       <div className="relative aspect-[4/3] overflow-hidden bg-muted">

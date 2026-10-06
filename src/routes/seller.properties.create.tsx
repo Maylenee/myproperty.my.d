@@ -11,9 +11,15 @@ export const Route = createFileRoute("/seller/properties/create")({
   head: () => ({
     meta: [
       { title: "Pasang Properti — MyProperty" },
-      { name: "description", content: "Pasang listing properti baru dalam beberapa langkah mudah." },
+      {
+        name: "description",
+        content: "Pasang listing properti baru dalam beberapa langkah mudah.",
+      },
       { property: "og:title", content: "Pasang Properti — MyProperty" },
-      { property: "og:description", content: "Pasang listing properti baru dalam beberapa langkah mudah." },
+      {
+        property: "og:description",
+        content: "Pasang listing properti baru dalam beberapa langkah mudah.",
+      },
     ],
   }),
   component: () => (
@@ -55,7 +61,9 @@ function CreateProperty() {
     if (!currentUser) return;
     createProperty({ ...toProperty(values), sellerId: currentUser.id, status });
     toast.success(
-      status === "draft" ? "Draft tersimpan." : "Listing dikirim. Menunggu review admin sebelum tayang.",
+      status === "draft"
+        ? "Draft tersimpan."
+        : "Listing dikirim. Menunggu review admin sebelum tayang.",
     );
     navigate({ to: "/seller/properties" });
   };

@@ -3,16 +3,29 @@ import { SearchX, Search } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 
 import { CardGridSkeleton, EmptyState, PageHeader } from "@/components/app/common";
-import { FilterChips, FilterDrawer, FilterSidebar, SortSelect } from "@/components/app/property-filters";
+import {
+  FilterChips,
+  FilterDrawer,
+  FilterSidebar,
+  SortSelect,
+} from "@/components/app/property-filters";
 import { PropertyGrid } from "@/components/app/property-card";
 import { AppShell } from "@/components/app/shell";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { applyFilters, defaultFilters, sortProperties, type Filters, type SortKey } from "@/lib/search";
+import {
+  applyFilters,
+  defaultFilters,
+  sortProperties,
+  type Filters,
+  type SortKey,
+} from "@/lib/search";
 import { isPublic, useStore } from "@/lib/store";
 
 export const Route = createFileRoute("/properties/")({
-  validateSearch: (search: Record<string, unknown>): { q?: string; tipe?: string; transaksi?: string; maks?: string } => ({
+  validateSearch: (
+    search: Record<string, unknown>,
+  ): { q?: string; tipe?: string; transaksi?: string; maks?: string } => ({
     q: typeof search.q === "string" ? search.q : undefined,
     tipe: typeof search.tipe === "string" ? search.tipe : undefined,
     transaksi: typeof search.transaksi === "string" ? search.transaksi : undefined,
@@ -23,12 +36,14 @@ export const Route = createFileRoute("/properties/")({
       { title: "Cari Properti — MyProperty" },
       {
         name: "description",
-        content: "Cari rumah, tanah, apartemen, ruko, kost, dan villa dijual atau disewa dengan filter lengkap.",
+        content:
+          "Cari rumah, tanah, apartemen, ruko, kost, dan villa dijual atau disewa dengan filter lengkap.",
       },
       { property: "og:title", content: "Cari Properti — MyProperty" },
       {
         property: "og:description",
-        content: "Cari rumah, tanah, apartemen, ruko, kost, dan villa dijual atau disewa dengan filter lengkap.",
+        content:
+          "Cari rumah, tanah, apartemen, ruko, kost, dan villa dijual atau disewa dengan filter lengkap.",
       },
     ],
   }),
@@ -44,7 +59,8 @@ function PropertiesPage() {
     ...defaultFilters,
     q: search.q ?? "",
     types: search.tipe ? [search.tipe] : [],
-    transaction: search.transaksi === "dijual" || search.transaksi === "disewa" ? search.transaksi : "",
+    transaction:
+      search.transaksi === "dijual" || search.transaksi === "disewa" ? search.transaksi : "",
     maxPrice: search.maks ?? "",
   });
   const [keyword, setKeyword] = useState(search.q ?? "");
@@ -88,7 +104,10 @@ function PropertiesPage() {
           }}
         >
           <div className="relative flex-1">
-            <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" aria-hidden />
+            <Search
+              className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
+              aria-hidden
+            />
             <Input
               aria-label="Cari nama properti, kota, atau kecamatan"
               placeholder="Cari nama properti, kota, atau kecamatan"

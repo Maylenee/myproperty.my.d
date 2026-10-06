@@ -29,7 +29,11 @@ export const Route = createFileRoute("/admin/categories")({
 });
 
 const slugify = (s: string) =>
-  s.toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+  s
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
 
 function AdminCategories() {
   const { state, saveCategory, deleteCategory } = useStore();
@@ -39,7 +43,10 @@ function AdminCategories() {
 
   return (
     <div className="space-y-6">
-      <PageHeader title="Kelola Kategori" description="Kategori aktif muncul di filter dan form pasang properti." />
+      <PageHeader
+        title="Kelola Kategori"
+        description="Kategori aktif muncul di filter dan form pasang properti."
+      />
 
       <form
         className="flex max-w-md gap-2"
@@ -59,7 +66,12 @@ function AdminCategories() {
           toast.success("Kategori ditambahkan.");
         }}
       >
-        <Input aria-label="Nama kategori baru" placeholder="Nama kategori baru" value={name} onChange={(e) => setName(e.target.value)} />
+        <Input
+          aria-label="Nama kategori baru"
+          placeholder="Nama kategori baru"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
         <Button type="submit">Tambah</Button>
       </form>
 
@@ -67,10 +79,17 @@ function AdminCategories() {
         {state.categories.map((c) => {
           const count = state.properties.filter((p) => p.type === c.slug).length;
           return (
-            <li key={c.id} className="grid gap-3 p-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center">
+            <li
+              key={c.id}
+              className="grid gap-3 p-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center"
+            >
               {editing?.id === c.id ? (
                 <div className="flex gap-2">
-                  <Input aria-label="Ubah nama kategori" value={editName} onChange={(e) => setEditName(e.target.value)} />
+                  <Input
+                    aria-label="Ubah nama kategori"
+                    value={editName}
+                    onChange={(e) => setEditName(e.target.value)}
+                  />
                   <Button
                     size="sm"
                     onClick={() => {
@@ -90,7 +109,9 @@ function AdminCategories() {
                 <div>
                   <p className="font-semibold text-foreground">
                     {c.name}{" "}
-                    <span className={`ml-1 text-xs font-bold uppercase ${c.active ? "text-primary" : "text-muted-foreground"}`}>
+                    <span
+                      className={`ml-1 text-xs font-bold uppercase ${c.active ? "text-primary" : "text-muted-foreground"}`}
+                    >
                       {c.active ? "Aktif" : "Nonaktif"}
                     </span>
                   </p>

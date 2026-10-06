@@ -128,7 +128,9 @@ export function StatCard({
 export function ErrorNotice({ message, onRetry }: { message?: string; onRetry?: () => void }) {
   return (
     <div role="alert" className="border border-destructive/40 bg-destructive/5 p-5 text-sm">
-      <p className="font-semibold text-foreground">{message ?? "Terjadi kesalahan. Silakan coba lagi."}</p>
+      <p className="font-semibold text-foreground">
+        {message ?? "Terjadi kesalahan. Silakan coba lagi."}
+      </p>
       {onRetry ? (
         <Button variant="outline" size="sm" className="mt-3" onClick={onRetry}>
           Coba lagi

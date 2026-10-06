@@ -27,32 +27,52 @@ export const Route = createFileRoute("/admin/reports")({
   ),
 });
 
-const statusLabel = { pending: "Perlu ditinjau", ditindak: "Listing diturunkan", diabaikan: "Diabaikan" } as const;
+const statusLabel = {
+  pending: "Perlu ditinjau",
+  ditindak: "Listing diturunkan",
+  diabaikan: "Diabaikan",
+} as const;
 
 function AdminReports() {
   const { state, resolveReport, updateProperty } = useStore();
 
   return (
     <div className="space-y-6">
-      <PageHeader title="Laporan" description="Laporan dari pengguna tentang listing yang bermasalah." />
+      <PageHeader
+        title="Laporan"
+        description="Laporan dari pengguna tentang listing yang bermasalah."
+      />
       {state.reports.length === 0 ? (
-        <EmptyState icon={FileWarning} title="Belum ada laporan" description="Laporan dari pengguna akan muncul di sini." />
+        <EmptyState
+          icon={FileWarning}
+          title="Belum ada laporan"
+          description="Laporan dari pengguna akan muncul di sini."
+        />
       ) : (
         <ul className="divide-y divide-border border border-border bg-card">
           {state.reports.map((r) => {
             const p = state.properties.find((x) => x.id === r.propertyId);
             return (
-              <li key={r.id} className="grid gap-3 p-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center">
+              <li
+                key={r.id}
+                className="grid gap-3 p-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center"
+              >
                 <div className="min-w-0">
                   <p className="font-semibold text-foreground">
                     {r.reason}
-                    <span className={`ml-2 text-xs font-bold uppercase ${r.status === "pending" ? "text-accent-foreground" : "text-muted-foreground"}`}>
+                    <span
+                      className={`ml-2 text-xs font-bold uppercase ${r.status === "pending" ? "text-accent-foreground" : "text-muted-foreground"}`}
+                    >
                       {statusLabel[r.status]}
                     </span>
                   </p>
                   <p className="text-sm text-muted-foreground">
                     {p ? (
-                      <Link to="/properties/$id" params={{ id: p.id }} className="text-primary hover:underline">
+                      <Link
+                        to="/properties/$id"
+                        params={{ id: p.id }}
+                        className="text-primary hover:underline"
+                      >
                         {p.name}
                       </Link>
                     ) : (

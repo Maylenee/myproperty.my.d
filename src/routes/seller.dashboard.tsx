@@ -14,7 +14,10 @@ export const Route = createFileRoute("/seller/dashboard")({
       { title: "Dashboard Penjual — MyProperty" },
       { name: "description", content: "Ringkasan listing, kunjungan, dan inquiry properti Anda." },
       { property: "og:title", content: "Dashboard Penjual — MyProperty" },
-      { property: "og:description", content: "Ringkasan listing, kunjungan, dan inquiry properti Anda." },
+      {
+        property: "og:description",
+        content: "Ringkasan listing, kunjungan, dan inquiry properti Anda.",
+      },
     ],
   }),
   component: () => (
@@ -36,11 +39,16 @@ function SellerDashboard() {
     <div className="space-y-8">
       <PageHeader
         title={`Halo, ${currentUser?.name.split(" ")[0]}`}
-        description={currentUser?.verified ? "Akun Anda sudah terverifikasi." : "Akun Anda belum terverifikasi oleh admin."}
+        description={
+          currentUser?.verified
+            ? "Akun Anda sudah terverifikasi."
+            : "Akun Anda belum terverifikasi oleh admin."
+        }
         action={
           <Button asChild>
             <Link to="/seller/properties/create">
-              <PlusCircle className="size-4" aria-hidden /> <span className="hidden sm:inline">Tambah Properti</span>
+              <PlusCircle className="size-4" aria-hidden />{" "}
+              <span className="hidden sm:inline">Tambah Properti</span>
             </Link>
           </Button>
         }
@@ -48,7 +56,11 @@ function SellerDashboard() {
 
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
         <StatCard label="Total Listing" value={mine.length} icon={Building2} />
-        <StatCard label="Listing Aktif" value={mine.filter((p) => p.status === "aktif").length} icon={CheckCircle2} />
+        <StatCard
+          label="Listing Aktif"
+          value={mine.filter((p) => p.status === "aktif").length}
+          icon={CheckCircle2}
+        />
         <StatCard label="Total Dilihat" value={formatNumber(views)} icon={Eye} />
         <StatCard label="Total Inquiry" value={inquiries.length} icon={MessageSquare} />
       </div>
@@ -56,13 +68,20 @@ function SellerDashboard() {
       <section>
         <div className="flex items-center justify-between">
           <h2 className="text-lg font-bold text-foreground">Inquiry terbaru</h2>
-          <Link to="/seller/inquiries" className="text-sm font-semibold text-primary hover:underline">
+          <Link
+            to="/seller/inquiries"
+            className="text-sm font-semibold text-primary hover:underline"
+          >
             Lihat semua
           </Link>
         </div>
         <div className="mt-4">
           {inquiries.length === 0 ? (
-            <EmptyState icon={MessageSquare} title="Belum ada inquiry" description="Inquiry dari calon pembeli akan muncul di sini." />
+            <EmptyState
+              icon={MessageSquare}
+              title="Belum ada inquiry"
+              description="Inquiry dari calon pembeli akan muncul di sini."
+            />
           ) : (
             <ul className="divide-y divide-border border border-border bg-card">
               {inquiries.slice(0, 5).map((inq) => {
@@ -73,11 +92,15 @@ function SellerDashboard() {
                       <p className="truncate font-semibold text-foreground">
                         {inq.buyerName}
                         {inq.status === "baru" ? (
-                          <span className="ml-2 bg-accent px-1.5 py-0.5 text-[10px] font-bold uppercase text-accent-foreground">Baru</span>
+                          <span className="ml-2 bg-accent px-1.5 py-0.5 text-[10px] font-bold uppercase text-accent-foreground">
+                            Baru
+                          </span>
                         ) : null}
                       </p>
                       <p className="truncate text-sm text-muted-foreground">{property?.name}</p>
-                      <p className="mt-1 line-clamp-1 text-sm text-muted-foreground">{inq.message}</p>
+                      <p className="mt-1 line-clamp-1 text-sm text-muted-foreground">
+                        {inq.message}
+                      </p>
                     </div>
                     <span className="text-xs text-muted-foreground">{timeAgo(inq.createdAt)}</span>
                   </li>
@@ -91,13 +114,19 @@ function SellerDashboard() {
       <section>
         <div className="flex items-center justify-between">
           <h2 className="text-lg font-bold text-foreground">Listing terbaru</h2>
-          <Link to="/seller/properties" className="text-sm font-semibold text-primary hover:underline">
+          <Link
+            to="/seller/properties"
+            className="text-sm font-semibold text-primary hover:underline"
+          >
             Kelola listing
           </Link>
         </div>
         <ul className="mt-4 divide-y divide-border border border-border bg-card">
           {mine.slice(0, 5).map((p) => (
-            <li key={p.id} className="grid grid-cols-[64px_minmax(0,1fr)_auto] items-center gap-3 p-3">
+            <li
+              key={p.id}
+              className="grid grid-cols-[64px_minmax(0,1fr)_auto] items-center gap-3 p-3"
+            >
               <img src={p.photos[0]} alt="" className="h-12 w-16 object-cover" />
               <div className="min-w-0">
                 <p className="truncate text-sm font-semibold text-foreground">{p.name}</p>
@@ -106,7 +135,9 @@ function SellerDashboard() {
               <StatusBadge status={p.status} />
             </li>
           ))}
-          {mine.length === 0 ? <li className="p-4 text-sm text-muted-foreground">Belum ada listing.</li> : null}
+          {mine.length === 0 ? (
+            <li className="p-4 text-sm text-muted-foreground">Belum ada listing.</li>
+          ) : null}
         </ul>
       </section>
     </div>

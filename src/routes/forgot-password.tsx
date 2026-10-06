@@ -54,8 +54,8 @@ function ForgotPasswordPage() {
           <CheckCircle2 className="mx-auto size-8 text-primary" aria-hidden />
           <h2 className="mt-3 text-base font-bold text-foreground">Tautan sudah dikirim</h2>
           <p className="mt-2 text-sm leading-6 text-muted-foreground">
-            Kami mengirim tautan pengaturan ulang ke <span className="font-semibold">{email}</span>. Pada
-            aplikasi contoh ini, Anda bisa langsung membuka halaman atur ulang.
+            Kami mengirim tautan pengaturan ulang ke <span className="font-semibold">{email}</span>.
+            Pada aplikasi contoh ini, Anda bisa langsung membuka halaman atur ulang.
           </p>
           <Button asChild className="mt-5 w-full">
             <Link to="/reset-password" search={{ email }}>
