@@ -6,7 +6,7 @@ import { PageHeader } from "@/components/app/common";
 import { AdminShell, RoleGuard } from "@/components/app/shell";
 import { Input } from "@/components/ui/input";
 import { formatDate } from "@/lib/format";
-import { useStore } from "@/lib/store";
+import { useSupabaseStore as useStore } from "@/lib/supabase-store";
 
 export const Route = createFileRoute("/admin/users")({
   head: () => ({

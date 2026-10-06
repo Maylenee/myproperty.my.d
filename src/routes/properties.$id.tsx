@@ -38,7 +38,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { formatNumber, formatPrice, timeAgo } from "@/lib/format";
-import { isPublic, useStore } from "@/lib/store";
+import { isPublic } from "@/lib/store"; import { useSupabaseStore as useStore } from "@/lib/supabase-store";
 
 export const Route = createFileRoute("/properties/$id")({
   head: () => ({

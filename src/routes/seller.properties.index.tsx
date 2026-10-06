@@ -25,7 +25,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { formatNumber, formatPrice } from "@/lib/format";
-import { useStore } from "@/lib/store";
+import { useSupabaseStore as useStore } from "@/lib/supabase-store";
 import type { Property, PropertyStatus } from "@/lib/types";
 
 export const Route = createFileRoute("/seller/properties/")({

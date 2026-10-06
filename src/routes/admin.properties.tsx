@@ -17,7 +17,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { formatPrice, timeAgo } from "@/lib/format";
-import { useStore } from "@/lib/store";
+import { useSupabaseStore as useStore } from "@/lib/supabase-store";
 import type { Property } from "@/lib/types";
 
 export const Route = createFileRoute("/admin/properties")({

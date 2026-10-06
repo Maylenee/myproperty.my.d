@@ -9,7 +9,7 @@ import {
   type PropertyFormValues,
 } from "@/components/app/property-form";
 import { RoleGuard, SellerShell } from "@/components/app/shell";
-import { useStore } from "@/lib/store";
+import { useSupabaseStore as useStore } from "@/lib/supabase-store";
 
 export const Route = createFileRoute("/seller/properties/$id/edit")({
   head: () => ({

@@ -7,7 +7,7 @@ import { AuthLayout, FieldError } from "@/components/app/auth-layout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useStore } from "@/lib/store";
+import { useSupabaseStore as useStore } from "@/lib/supabase-store";
 
 export const Route = createFileRoute("/admin/login")({
   head: () => ({

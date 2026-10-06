@@ -4,7 +4,7 @@ import { toast } from "sonner";
 import { PageHeader } from "@/components/app/common";
 import { PropertyForm, emptyValues, type PropertyFormValues } from "@/components/app/property-form";
 import { RoleGuard, SellerShell } from "@/components/app/shell";
-import { useStore } from "@/lib/store";
+import { useSupabaseStore as useStore } from "@/lib/supabase-store";
 import type { PropertyStatus } from "@/lib/types";
 
 export const Route = createFileRoute("/seller/properties/create")({

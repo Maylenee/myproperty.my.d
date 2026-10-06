@@ -6,7 +6,7 @@ import { StatusBadge } from "@/components/app/property-card";
 import { RoleGuard, SellerShell } from "@/components/app/shell";
 import { Button } from "@/components/ui/button";
 import { formatNumber, formatPrice, timeAgo } from "@/lib/format";
-import { useStore } from "@/lib/store";
+import { useSupabaseStore as useStore } from "@/lib/supabase-store";
 
 export const Route = createFileRoute("/seller/dashboard")({
   head: () => ({

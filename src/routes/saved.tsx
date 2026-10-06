@@ -4,7 +4,7 @@ import { Heart } from "lucide-react";
 import { CardGridSkeleton, EmptyState, PageHeader } from "@/components/app/common";
 import { PropertyGrid } from "@/components/app/property-card";
 import { AppShell } from "@/components/app/shell";
-import { useStore } from "@/lib/store";
+import { useSupabaseStore as useStore } from "@/lib/supabase-store";
 
 export const Route = createFileRoute("/saved")({
   head: () => ({

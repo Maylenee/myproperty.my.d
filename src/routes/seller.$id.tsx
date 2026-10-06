@@ -6,7 +6,7 @@ import { PropertyGrid } from "@/components/app/property-card";
 import { AppShell } from "@/components/app/shell";
 import { Button } from "@/components/ui/button";
 import { formatDate } from "@/lib/format";
-import { isPublic, useStore } from "@/lib/store";
+import { isPublic } from "@/lib/store"; import { useSupabaseStore as useStore } from "@/lib/supabase-store";
 
 export const Route = createFileRoute("/seller/$id")({
   head: () => ({

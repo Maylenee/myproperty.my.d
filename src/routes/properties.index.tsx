@@ -20,7 +20,7 @@ import {
   type Filters,
   type SortKey,
 } from "@/lib/search";
-import { isPublic, useStore } from "@/lib/store";
+import { isPublic } from "@/lib/store"; import { useSupabaseStore as useStore } from "@/lib/supabase-store";
 
 export const Route = createFileRoute("/properties/")({
   validateSearch: (

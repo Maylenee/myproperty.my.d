@@ -6,7 +6,7 @@ import { EmptyState, PageHeader } from "@/components/app/common";
 import { AdminShell, RoleGuard } from "@/components/app/shell";
 import { Button } from "@/components/ui/button";
 import { timeAgo } from "@/lib/format";
-import { useStore } from "@/lib/store";
+import { useSupabaseStore as useStore } from "@/lib/supabase-store";
 
 export const Route = createFileRoute("/admin/reports")({
   head: () => ({

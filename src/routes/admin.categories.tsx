@@ -6,7 +6,7 @@ import { PageHeader } from "@/components/app/common";
 import { AdminShell, RoleGuard } from "@/components/app/shell";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useStore } from "@/lib/store";
+import { useSupabaseStore as useStore } from "@/lib/supabase-store";
 import type { Category } from "@/lib/types";
 
 export const Route = createFileRoute("/admin/categories")({
