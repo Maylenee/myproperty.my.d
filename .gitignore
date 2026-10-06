@@ -45,5 +45,3 @@ coverage/
 
 # TypeScript cache
 *.tsbuildinfo
-
-.env
