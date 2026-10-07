@@ -14,16 +14,309 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      categories: {
+        Row: {
+          active: boolean
+          id: string
+          name: string
+          slug: string
+        }
+        Insert: {
+          active?: boolean
+          id?: string
+          name: string
+          slug: string
+        }
+        Update: {
+          active?: boolean
+          id?: string
+          name?: string
+          slug?: string
+        }
+        Relationships: []
+      }
+      favorites: {
+        Row: {
+          created_at: string
+          property_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          property_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          property_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "favorites_property_id_fkey"
+            columns: ["property_id"]
+            isOneToOne: false
+            referencedRelation: "properties"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      inquiries: {
+        Row: {
+          buyer_id: string | null
+          buyer_name: string
+          buyer_phone: string
+          created_at: string
+          id: string
+          message: string
+          property_id: string
+          seller_id: string
+          status: string
+        }
+        Insert: {
+          buyer_id?: string | null
+          buyer_name: string
+          buyer_phone: string
+          created_at?: string
+          id?: string
+          message: string
+          property_id: string
+          seller_id: string
+          status?: string
+        }
+        Update: {
+          buyer_id?: string | null
+          buyer_name?: string
+          buyer_phone?: string
+          created_at?: string
+          id?: string
+          message?: string
+          property_id?: string
+          seller_id?: string
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "inquiries_property_id_fkey"
+            columns: ["property_id"]
+            isOneToOne: false
+            referencedRelation: "properties"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          bio: string | null
+          created_at: string
+          email: string
+          id: string
+          name: string
+          phone: string
+          photo: string | null
+          verified: boolean | null
+        }
+        Insert: {
+          bio?: string | null
+          created_at?: string
+          email?: string
+          id: string
+          name?: string
+          phone?: string
+          photo?: string | null
+          verified?: boolean | null
+        }
+        Update: {
+          bio?: string | null
+          created_at?: string
+          email?: string
+          id?: string
+          name?: string
+          phone?: string
+          photo?: string | null
+          verified?: boolean | null
+        }
+        Relationships: []
+      }
+      properties: {
+        Row: {
+          address: string
+          bathrooms: number
+          bedrooms: number
+          building_area: number
+          certificate: string
+          city: string
+          created_at: string
+          description: string
+          district: string
+          facilities: string[]
+          floors: number
+          id: string
+          land_area: number
+          name: string
+          photos: string[]
+          price: number
+          province: string
+          reject_reason: string | null
+          seller_id: string
+          status: string
+          transaction: string
+          type: string
+          updated_at: string
+          views: number
+        }
+        Insert: {
+          address?: string
+          bathrooms?: number
+          bedrooms?: number
+          building_area?: number
+          certificate?: string
+          city?: string
+          created_at?: string
+          description?: string
+          district?: string
+          facilities?: string[]
+          floors?: number
+          id?: string
+          land_area?: number
+          name: string
+          photos?: string[]
+          price?: number
+          province?: string
+          reject_reason?: string | null
+          seller_id: string
+          status?: string
+          transaction: string
+          type: string
+          updated_at?: string
+          views?: number
+        }
+        Update: {
+          address?: string
+          bathrooms?: number
+          bedrooms?: number
+          building_area?: number
+          certificate?: string
+          city?: string
+          created_at?: string
+          description?: string
+          district?: string
+          facilities?: string[]
+          floors?: number
+          id?: string
+          land_area?: number
+          name?: string
+          photos?: string[]
+          price?: number
+          province?: string
+          reject_reason?: string | null
+          seller_id?: string
+          status?: string
+          transaction?: string
+          type?: string
+          updated_at?: string
+          views?: number
+        }
+        Relationships: []
+      }
+      recently_viewed: {
+        Row: {
+          property_id: string
+          user_id: string
+          viewed_at: string
+        }
+        Insert: {
+          property_id: string
+          user_id: string
+          viewed_at?: string
+        }
+        Update: {
+          property_id?: string
+          user_id?: string
+          viewed_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "recently_viewed_property_id_fkey"
+            columns: ["property_id"]
+            isOneToOne: false
+            referencedRelation: "properties"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      reports: {
+        Row: {
+          created_at: string
+          id: string
+          property_id: string
+          reason: string
+          reporter: string
+          status: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          property_id: string
+          reason: string
+          reporter: string
+          status?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          property_id?: string
+          reason?: string
+          reporter?: string
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "reports_property_id_fkey"
+            columns: ["property_id"]
+            isOneToOne: false
+            referencedRelation: "properties"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
+      increment_property_view: {
+        Args: { _property_id: string }
+        Returns: undefined
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "buyer" | "seller" | "admin"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +443,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["buyer", "seller", "admin"],
+    },
   },
 } as const
