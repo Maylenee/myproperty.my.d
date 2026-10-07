@@ -31,6 +31,7 @@ import { Route as SellerIdRouteImport } from './routes/seller.$id'
 import { Route as SellerDashboardRouteImport } from './routes/seller.dashboard'
 import { Route as SellerInquiriesRouteImport } from './routes/seller.inquiries'
 import { Route as SellerProfileRouteImport } from './routes/seller.profile'
+import { Route as ApiPublicSetupDemoRouteImport } from './routes/api/public/setup-demo'
 import { Route as SellerPropertiesIndexRouteImport } from './routes/seller.properties.index'
 import { Route as SellerPropertiesCreateRouteImport } from './routes/seller.properties.create'
 import { Route as SellerPropertiesIdEditRouteImport } from './routes/seller.properties.$id.edit'
@@ -145,6 +146,11 @@ const SellerProfileRoute = SellerProfileRouteImport.update({
   path: '/seller/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicSetupDemoRoute = ApiPublicSetupDemoRouteImport.update({
+  id: '/api/public/setup-demo',
+  path: '/api/public/setup-demo',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SellerPropertiesIndexRoute = SellerPropertiesIndexRouteImport.update({
   id: '/seller/properties/',
   path: '/seller/properties/',
@@ -184,6 +190,7 @@ export interface FileRoutesByFullPath {
   '/seller/profile': typeof SellerProfileRoute
   '/admin/': typeof AdminIndexRoute
   '/properties/': typeof PropertiesIndexRoute
+  '/api/public/setup-demo': typeof ApiPublicSetupDemoRoute
   '/seller/properties/create': typeof SellerPropertiesCreateRoute
   '/seller/properties/': typeof SellerPropertiesIndexRoute
   '/seller/properties/$id/edit': typeof SellerPropertiesIdEditRoute
@@ -211,6 +218,7 @@ export interface FileRoutesByTo {
   '/seller/profile': typeof SellerProfileRoute
   '/admin': typeof AdminIndexRoute
   '/properties': typeof PropertiesIndexRoute
+  '/api/public/setup-demo': typeof ApiPublicSetupDemoRoute
   '/seller/properties/create': typeof SellerPropertiesCreateRoute
   '/seller/properties': typeof SellerPropertiesIndexRoute
   '/seller/properties/$id/edit': typeof SellerPropertiesIdEditRoute
@@ -239,6 +247,7 @@ export interface FileRoutesById {
   '/seller/profile': typeof SellerProfileRoute
   '/admin/': typeof AdminIndexRoute
   '/properties/': typeof PropertiesIndexRoute
+  '/api/public/setup-demo': typeof ApiPublicSetupDemoRoute
   '/seller/properties/create': typeof SellerPropertiesCreateRoute
   '/seller/properties/': typeof SellerPropertiesIndexRoute
   '/seller/properties/$id/edit': typeof SellerPropertiesIdEditRoute
@@ -268,6 +277,7 @@ export interface FileRouteTypes {
     | '/seller/profile'
     | '/admin/'
     | '/properties/'
+    | '/api/public/setup-demo'
     | '/seller/properties/create'
     | '/seller/properties/'
     | '/seller/properties/$id/edit'
@@ -295,6 +305,7 @@ export interface FileRouteTypes {
     | '/seller/profile'
     | '/admin'
     | '/properties'
+    | '/api/public/setup-demo'
     | '/seller/properties/create'
     | '/seller/properties'
     | '/seller/properties/$id/edit'
@@ -322,6 +333,7 @@ export interface FileRouteTypes {
     | '/seller/profile'
     | '/admin/'
     | '/properties/'
+    | '/api/public/setup-demo'
     | '/seller/properties/create'
     | '/seller/properties/'
     | '/seller/properties/$id/edit'
@@ -350,6 +362,7 @@ export interface RootRouteChildren {
   SellerProfileRoute: typeof SellerProfileRoute
   AdminIndexRoute: typeof AdminIndexRoute
   PropertiesIndexRoute: typeof PropertiesIndexRoute
+  ApiPublicSetupDemoRoute: typeof ApiPublicSetupDemoRoute
   SellerPropertiesCreateRoute: typeof SellerPropertiesCreateRoute
   SellerPropertiesIndexRoute: typeof SellerPropertiesIndexRoute
   SellerPropertiesIdEditRoute: typeof SellerPropertiesIdEditRoute
@@ -511,6 +524,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SellerProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/setup-demo': {
+      id: '/api/public/setup-demo'
+      path: '/api/public/setup-demo'
+      fullPath: '/api/public/setup-demo'
+      preLoaderRoute: typeof ApiPublicSetupDemoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/seller/properties/': {
       id: '/seller/properties/'
       path: '/seller/properties'
@@ -558,6 +578,7 @@ const rootRouteChildren: RootRouteChildren = {
   SellerProfileRoute: SellerProfileRoute,
   AdminIndexRoute: AdminIndexRoute,
   PropertiesIndexRoute: PropertiesIndexRoute,
+  ApiPublicSetupDemoRoute: ApiPublicSetupDemoRoute,
   SellerPropertiesCreateRoute: SellerPropertiesCreateRoute,
   SellerPropertiesIndexRoute: SellerPropertiesIndexRoute,
   SellerPropertiesIdEditRoute: SellerPropertiesIdEditRoute,
